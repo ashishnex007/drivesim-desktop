@@ -13,7 +13,6 @@ function createWindow() {
       nodeIntegration: false,
     },
   });
-
   
   // Open left and right windows
   leftWindow = new BrowserWindow({
@@ -40,6 +39,10 @@ function createWindow() {
   leftWindow.loadURL('http://localhost:5173/left');
   rightWindow.loadURL('http://localhost:5173/right');
 }
+
+ipcMain.on('exit-app', () => {
+  app.quit();
+});
 
 app.whenReady().then(()=> {
   createWindow();
