@@ -49,13 +49,19 @@ app.whenReady().then(()=> {
     leftWindow.webContents.send('difficulty-changed', difficulty);
     rightWindow.webContents.send('difficulty-changed', difficulty);
   });
+
+  ipcMain.on('set-town', (event, town) => {
+    mainWindow.webContents.send('town-changed', town);
+    leftWindow.webContents.send('town-changed', town);
+    rightWindow.webContents.send('town-changed', town);
+  });
 });
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-      app.quit();
-    }
-  });
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
   
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {

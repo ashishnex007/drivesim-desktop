@@ -11,6 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@coreui/coreui": "^5.1.1",
+    "@coreui/vue": "^5.2.0",
+    "bootstrap": "^5.3.3",
     "electron": "^31.3.1",
     "vue": "^3.4.35",
     "vue-router": "^4.4.3"
