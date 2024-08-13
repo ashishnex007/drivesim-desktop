@@ -1,4 +1,11 @@
 <template>
+  
+  <div class="w-[1rem] h-[1rem] bg-white absolute"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute top-0 right-0"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 right-0"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 left-0"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+
   <div class="container mx-auto">
 
     <div v-if="selectedTown === '2'">

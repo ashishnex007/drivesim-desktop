@@ -1,5 +1,11 @@
 <template>
   
+  <div class="w-[1rem] h-[1rem] bg-white absolute"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute top-0 right-0"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 right-0"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 left-0"></div>
+  <div class="w-[1rem] h-[1rem] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+  
   <div id="landingFrame" class="flex justify-center items-center frame">
     <!-- <div id="landingFrame" class="flex justify-between items-center frame"> -->
       <div v-if="statex === 'landing'" class="flex flex-col w-1/2 items-center gap-y-8">
