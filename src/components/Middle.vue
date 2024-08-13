@@ -1,5 +1,5 @@
 <template>
-  
+
   <div class="w-[1rem] h-[1rem] bg-white absolute"></div>
   <div class="w-[1rem] h-[1rem] bg-white absolute top-0 right-0"></div>
   <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 right-0"></div>
@@ -10,63 +10,116 @@
     <!-- <div id="landingFrame" class="flex justify-between items-center frame"> -->
       <div v-if="statex === 'landing'" class="flex flex-col w-1/2 items-center gap-y-8">
       <h1 class="text-center text-white font-semibold text-6xl my-24 mb-12">MOBILITY DRIVING SIMULATOR</h1>
-      <button @click="changeState('practice')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-yellow hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">PRACTICE</button>
-      <button @click="changeState('play')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">PLAY</button>
-      <button @click="changeState('settings')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">SETTINGS</button>
-      <button @click="changeState('explore')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">EXPLORE</button>
-      <button @click="exitApp" class="w-[20rem] bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">EXIT</button>
+      <button @click="changeState('practice')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-track-next"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /><path d="M13 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /></svg>
+        PRACTICE
+      </button>
+      <button @click="changeState('play')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-[#F9AF06]  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-steering-wheel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 14l0 7" /><path d="M10 12l-6.75 -2" /><path d="M14 12l6.75 -2" /></svg>
+        PLAY
+      </button>
+      <button @click="changeState('settings')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-[#F9AF06]  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
+        SETTINGS
+      </button>
+      <button @click="changeState('explore')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-[#F9AF06]  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-world"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M3.6 9h16.8" /><path d="M3.6 15h16.8" /><path d="M11.5 3a17 17 0 0 0 0 18" /><path d="M12.5 3a17 17 0 0 1 0 18" /></svg>
+        EXPLORE
+      </button>
+      <button @click="exitApp" class="w-[20rem] flex items-center gap-x-4 bg-red-500 text-4xl text-white  hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
+        EXIT
+      </button>
     </div>
 
     <div v-if="statex === 'play'" class="flex flex-col w-full items-center gap-y-8">
-      <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT DIFFICULTY</h1>
-      <div class="flex w-full justify-around">
+    <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT DIFFICULTY</h1>
+    <div class="flex w-full justify-around">
+      <!-- EASY -->
+      <div
+        :class="['w-40 h-40 rounded-xl flex flex-col items-center py-6 transition duration-300', selectedDifficulty === 'easy' ? 'bg-green-500 text-white' : 'bg-white hover:bg-green-500 hover:text-white']"
+        @click="selectDifficulty('easy')"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-star">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
+        </svg>
+        <h1 class="text-4xl font-semibold">EASY</h1>
+      </div>
 
-        <div class="w-40 h-40 bg-white rounded-xl flex flex-col items-center py-6 hover:bg-green-500 hover:text-white transition duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-star">
+      <!-- MEDIUM -->
+      <div
+        :class="['w-40 h-40 rounded-xl flex flex-col items-center py-6 transition duration-300', selectedDifficulty === 'medium' ? 'bg-orange-500 text-white' : 'bg-white hover:bg-orange-500 hover:text-white']"
+        @click="selectDifficulty('medium')"
+      >
+        <div class="flex">
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-star">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
           </svg>
-          <h1 class="text-4xl font-semibold">EASY</h1>
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-star">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
+          </svg>
         </div>
-        
-        <div class="w-40 h-40 bg-white rounded-xl flex flex-col items-center py-6 hover:bg-orange-500 hover:text-white transition duration-300">
-          <div class="flex">
-            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-star">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-star">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
-            </svg>
-          </div>
-          <h1 class="text-4xl font-semibold">MEDIUM</h1>
-        </div>
-
-        <div class="w-40 h-40 bg-white rounded-xl flex flex-col items-center py-6 hover:bg-red-500 hover:text-white transition duration-300">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="80"  height="80"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-stars"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.657 12.007a1.39 1.39 0 0 0 -1.103 .765l-.855 1.723l-1.907 .277c-.52 .072 -.96 .44 -1.124 .944l-.038 .14c-.1 .465 .046 .954 .393 1.29l1.377 1.337l-.326 1.892a1.393 1.393 0 0 0 2.018 1.465l1.708 -.895l1.708 .896a1.388 1.388 0 0 0 1.462 -.105l.112 -.09a1.39 1.39 0 0 0 .442 -1.272l-.325 -1.891l1.38 -1.339c.38 -.371 .516 -.924 .352 -1.427l-.051 -.134a1.39 1.39 0 0 0 -1.073 -.81l-1.907 -.278l-.853 -1.722a1.393 1.393 0 0 0 -1.247 -.773l-.143 .007z" /><path d="M6.057 12.007a1.39 1.39 0 0 0 -1.103 .765l-.855 1.723l-1.907 .277c-.52 .072 -.96 .44 -1.124 .944l-.038 .14c-.1 .465 .046 .954 .393 1.29l1.377 1.337l-.326 1.892a1.393 1.393 0 0 0 2.018 1.465l1.708 -.895l1.708 .896a1.388 1.388 0 0 0 1.462 -.105l.112 -.09a1.39 1.39 0 0 0 .442 -1.272l-.324 -1.891l1.38 -1.339c.38 -.371 .516 -.924 .352 -1.427l-.051 -.134a1.39 1.39 0 0 0 -1.073 -.81l-1.908 -.279l-.853 -1.722a1.393 1.393 0 0 0 -1.247 -.772l-.143 .007z" /><path d="M11.857 2.007a1.39 1.39 0 0 0 -1.103 .765l-.855 1.723l-1.907 .277c-.52 .072 -.96 .44 -1.124 .944l-.038 .14c-.1 .465 .046 .954 .393 1.29l1.377 1.337l-.326 1.892a1.393 1.393 0 0 0 2.018 1.465l1.708 -.894l1.709 .896a1.388 1.388 0 0 0 1.462 -.105l.112 -.09a1.39 1.39 0 0 0 .442 -1.272l-.325 -1.892l1.38 -1.339c.38 -.371 .516 -.924 .352 -1.427l-.051 -.134a1.39 1.39 0 0 0 -1.073 -.81l-1.908 -.279l-.853 -1.722a1.393 1.393 0 0 0 -1.247 -.772l-.143 .007z" /></svg>
-          <h1 class="text-4xl font-semibold">HARD</h1>
-        </div>
-
+        <h1 class="text-4xl font-semibold">MEDIUM</h1>
       </div>
-      <button @click="changeState('easy-scenes')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">EASY</button>
-      <button @click="changeState('medium-hard-scenes')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">INTERMEDIATE</button>
-      <button @click="changeState('medium-hard-scenes')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">HARD</button>
-      <button @click="changeState('landing')" class="w-[20rem] bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">BACK</button>
+
+      <!-- HARD -->
+      <div
+        :class="['w-40 h-40 rounded-xl flex flex-col items-center py-6 transition duration-300', selectedDifficulty === 'hard' ? 'bg-red-500 text-white' : 'bg-white hover:bg-red-500 hover:text-white']"
+        @click="selectDifficulty('hard')"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-stars">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M17.657 12.007a1.39 1.39 0 0 0 -1.103 .765l-.855 1.723l-1.907 .277c-.52 .072 -.96 .44 -1.124 .944l-.038 .14c-.1 .465 .046 .954 .393 1.29l1.377 1.337l-.326 1.892a1.393 1.393 0 0 0 2.018 1.465l1.708 -.895l1.708 .896a1.388 1.388 0 0 0 1.462 -.105l.112 -.09a1.39 1.39 0 0 0 .442 -1.272l-.325 -1.891l1.38 -1.339c.38 -.371 .516 -.924 .352 -1.427l-.051 -.134a1.39 1.39 0 0 0 -1.073 -.81l-1.907 -.278l-.853 -1.722a1.393 1.393 0 0 0 -1.247 -.773l-.143 .007z" />
+          <path d="M6.057 12.007a1.39 1.39 0 0 0 -1.103 .765l-.855 1.723l-1.907 .277c-.52 .072 -.96 .44 -1.124 .944l-.038 .14c-.1 .465 .046 .954 .393 1.29l1.377 1.337l-.326 1.892a1.393 1.393 0 0 0 2.018 1.465l1.708 -.895l1.708 .896a1.388 1.388 0 0 0 1.462 -.105l.112 -.09a1.39 1.39 0 0 0 .442 -1.272l-.324 -1.891l1.38 -1.339c.38 -.371 .516 -.924 .352 -1.427l-.051 -.134a1.39 1.39 0 0 0 -1.073 -.81l-1.908 -.279l-.853 -1.722a1.393 1.393 0 0 0 -1.247 -.772l-.143 .007z" />
+        </svg>
+        <h1 class="text-4xl font-semibold">HARD</h1>
+      </div>
     </div>
 
-    <div v-if="statex === 'easy-scenes'" class="flex flex-col w-1/2 items-center gap-y-8">
-      <button @click="changeState('towns')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">SCENE 1</button>
-      <button @click="changeState('towns')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">SCENE 2</button>
-      <button @click="changeState('play')" class="w-[20rem] bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">BACK</button>
+    <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT SCENARIO</h1>
+    <div class="flex w-full justify-around">
+      <button
+        v-if="selectedDifficulty === 'easy' || selectedDifficulty"
+        @click="selectScenario('scene1')"
+        :class="['w-[20rem] text-4xl text-darkBlue font-bold py-8 px-8 rounded transition-all', selectedScenario === 'scene1' ? 'bg-[#F9D949] text-black hover:bg-[#ffcb00]' : 'bg-[#E5BA73] text-black hover:bg-[#F9D949] hover:text-black']"
+      >
+        SCENE 1
+      </button>
+      <button
+        v-if="selectedDifficulty === 'easy' || selectedDifficulty"
+        @click="selectScenario('scene2')"
+        :class="['w-[20rem] text-4xl text-darkBlue font-bold py-8 px-8 rounded transition-all', selectedScenario === 'scene2' ? 'bg-[#F9D949] text-black hover:bg-[#ffcb00]' : 'bg-[#E5BA73] text-black hover:bg-[#F9D949] hover:text-black']"
+      >
+        SCENE 2
+      </button>
+      <button
+        v-if="selectedDifficulty === 'medium' || selectedDifficulty === 'hard'"
+        @click="selectScenario('scene3')"
+        :class="['w-[20rem] text-4xl text-darkBlue font-bold py-8 px-8 rounded transition-all', selectedScenario === 'scene3' ? 'bg-[#F9D949] text-black hover:bg-[#ffcb00]' : 'bg-[#E5BA73] text-black hover:bg-[#F9D949] hover:text-black']"
+      >
+        SCENE 3
+      </button>
     </div>
 
-    <div v-if="statex === 'medium-hard-scenes'" class="flex flex-col w-1/2 items-center gap-y-8">
-      <button @click="changeState('towns')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">SCENE 1</button>
-      <button @click="changeState('towns')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">SCENE 2</button>
-      <button @click="changeState('towns')" class="w-[20rem] bg-white text-4xl text-darkBlue hover:bg-[#F9AF06] hover:text-5xl hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">SCENE 3</button>
-      <button @click="changeState('play')" class="w-[20rem] bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">BACK</button>
+    <div class="flex w-full justify-around">
+      <button
+        @click="changeState('landing')"
+        :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition bg-red-500 hover:bg-red-600 text-white']"
+      >
+        BACK
+      </button>
+      <button
+        @click="changeState('towns')"
+        :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition', selectedDifficulty && selectedScenario ? 'bg-blue-600 text-white' : 'bg-gray-400 text-gray-700 cursor-not-allowed']"
+        :disabled="!selectedDifficulty || !selectedScenario"
+      >
+        NEXT
+      </button>
     </div>
+  </div>
 
     <div v-if="statex === 'towns'" class="w-full h-screen">
       <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT YOUR TOWN</h1>
@@ -113,6 +166,23 @@
   import { ref } from 'vue';
 
   // states
+  const selectedDifficulty = ref(null);
+  const selectedScenario = ref(null);
+
+  function selectDifficulty(difficulty) {
+    selectedDifficulty.value = difficulty;
+  }
+
+  function selectScenario(scenario) {
+    selectedScenario.value = scenario;
+  }
+
+  function proceedToNext() {
+    if (selectedDifficulty.value && selectedScenario.value) {
+      console.log(`Proceeding with ${selectedDifficulty.value} difficulty and ${selectedScenario.value}`);
+    }
+  }
+
   const difficulty = ref('');
   const currentSlide = ref(0);
   const townNumber = ref('2');
