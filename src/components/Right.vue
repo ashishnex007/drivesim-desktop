@@ -6,6 +6,14 @@
   <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 left-0"></div>
   <div class="w-[1rem] h-[1rem] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
 
+  <div v-if="selectedDifficulty">
+    <h1 class="text-3xl text-center">You are choosing{{ selectedDifficulty }}</h1>
+  </div>
+
+  <div v-if="selectedScenario">
+    <h1 class="text-3xl text-center">You are choosing{{ selectedScenario }}</h1>
+  </div>
+
   <div class="container mx-auto">
 
     <div v-if="selectedTown === '2'">
@@ -95,12 +103,17 @@
   import { ref, onMounted } from 'vue';
 
   const title = ref('Mobility Driving Simulator');
-  const message = ref('');
+  const selectedDifficulty = ref('');
   const selectedTown = ref('');
+  const selectedScenario = ref('');
 
   onMounted(() => {
     window.electronAPI.onDifficultyChange((event, difficulty) => {
-      message.value = `You chose ${difficulty}`;
+      selectedDifficulty.value = difficulty;
+    });
+
+    window.electronAPI.onScenarioChange((event, scenario) => {
+      selectedScenario.value = scenario;
     });
 
     window.electronAPI.onTownChange((event, town) => {

@@ -48,9 +48,15 @@ app.whenReady().then(()=> {
   createWindow();
 
   ipcMain.on('set-difficulty', (event, difficulty) => {
-    mainWindow.webContents.send('difficulty-changed', difficulty);
-    leftWindow.webContents.send('difficulty-changed', difficulty);
-    rightWindow.webContents.send('difficulty-changed', difficulty);
+    mainWindow.webContents.send('difficultyChange', difficulty);
+    leftWindow.webContents.send('difficultyChange', difficulty);
+    rightWindow.webContents.send('difficultyChange', difficulty);
+  });
+
+  ipcMain.on('set-scenario', (event, scenario) => {
+    mainWindow.webContents.send('scenarioChange', scenario);
+    leftWindow.webContents.send('scenarioChange', scenario);
+    rightWindow.webContents.send('scenarioChange', scenario);
   });
 
   ipcMain.on('set-town', (event, town) => {

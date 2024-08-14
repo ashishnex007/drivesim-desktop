@@ -168,13 +168,20 @@
   // states
   const selectedDifficulty = ref(null);
   const selectedScenario = ref(null);
+  const difficulty = ref('');
+  const currentSlide = ref(0);
+  const townNumber = ref('2');
+  const statex = ref('landing'); // state for which view to be shown
+  const previousState = ref(''); // store the previous state
 
   function selectDifficulty(difficulty) {
     selectedDifficulty.value = difficulty;
+    window.electronAPI.sendDifficulty(difficulty); // * for IPC
   }
 
   function selectScenario(scenario) {
     selectedScenario.value = scenario;
+    window.electronAPI.sendScenario(scenario); // * for IPC
   }
 
   function proceedToNext() {
@@ -183,33 +190,19 @@
     }
   }
 
-  const difficulty = ref('');
-  const currentSlide = ref(0);
-  const townNumber = ref('2');
-  const statex = ref('landing'); // state for which view to be shown
-  const previousState = ref(''); // store the previous state
-
-  function chooseDifficulty(level) {
-    window.electronAPI.sendDifficulty(level);
-  }
-
-  function chooseTown(town) {
-    window.electronAPI.sendTown(town);
-  }
-
   function changeTown(direction) {
     const towns = ['2', '3', '4', '5', '6'];
     const currentIndex = towns.indexOf(townNumber.value);
     const nextIndex = currentIndex + direction;
     if (nextIndex < 0) {
       townNumber.value = towns[towns.length - 1];
-      chooseTown(townNumber.value);
+      window.electronAPI.sendTown(townNumber.value);
     } else if (nextIndex >= towns.length) {
       townNumber.value = towns[0];
-      chooseTown(townNumber.value);
+      window.electronAPI.sendTown(townNumber.value);
     } else {
       townNumber.value = towns[nextIndex];
-      chooseTown(townNumber.value);
+      window.electronAPI.sendTown(townNumber.value);
     }
   }
 
@@ -217,7 +210,7 @@
     previousState.value = statex.value;
     statex.value = state;
     if(state === 'towns') {
-      chooseTown(townNumber.value);
+      window.electronAPI.sendTown(townNumber.value);
     }
   }
 
