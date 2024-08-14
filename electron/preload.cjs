@@ -1,6 +1,9 @@
 const {contextBridge, ipcRenderer} = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
+  sendRightState: (state) => ipcRenderer.send('set-right-state', state),
+  onRightStateChange: (callback) => ipcRenderer.on('rightChange', callback),
+
   sendDifficulty: (difficulty) => ipcRenderer.send('set-difficulty', difficulty),
   onDifficultyChange: (callback) => ipcRenderer.on('difficultyChange',callback),
 

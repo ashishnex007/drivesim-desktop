@@ -6,15 +6,16 @@
   <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 left-0"></div>
   <div class="w-[1rem] h-[1rem] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
 
-  <div v-if="selectedDifficulty">
-    <h1 class="text-3xl text-white text-center">You are choosing{{ selectedDifficulty }}</h1>
+  <div v-if="rightState === 'landing'" class="w-full h-screen flex justify-center">
+    <img :src="steering_wheel" />
   </div>
 
-  <div v-if="selectedScenario">
+  <div v-if="rightState === 'diff_sce'">
+    <h1 class="text-3xl text-white text-center">You are choosing{{ selectedDifficulty }}</h1>
     <h1 class="text-3xl text-white text-center">You are choosing{{ selectedScenario }}</h1>
   </div>
 
-  <div class="container mx-auto">
+  <div class="container mx-auto" v-if="rightState === 'towns'">
 
     <div v-if="selectedTown === '2'">
       <div id="carouselExample2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
@@ -101,13 +102,18 @@
 
 <script setup>
   import { ref, onMounted } from 'vue';
+  import steering_wheel from '../assets/steering_wheel.png';
 
-  const title = ref('Mobility Driving Simulator');
+  const rightState = ref('landing');
   const selectedDifficulty = ref('');
   const selectedTown = ref('');
   const selectedScenario = ref('');
 
   onMounted(() => {
+    window.electronAPI.onRightStateChange((event, state) => {
+      rightState.value = state;
+    });
+
     window.electronAPI.onDifficultyChange((event, difficulty) => {
       selectedDifficulty.value = difficulty;
     });

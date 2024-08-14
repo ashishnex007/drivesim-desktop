@@ -108,7 +108,7 @@
         BACK
       </button>
       <button
-        @click="changeState('towns')"
+        @click="handleTowns"
         :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition', selectedDifficulty && selectedScenario ? 'bg-blue-600 text-white' : 'bg-gray-400 text-gray-700 cursor-not-allowed']"
         :disabled="!selectedDifficulty || !selectedScenario"
       >
@@ -318,11 +318,13 @@
   function selectDifficulty(difficulty) {
     selectedDifficulty.value = difficulty;
     window.electronAPI.sendDifficulty(difficulty); // * for IPC
+    window.electronAPI.sendRightState('diff_sce');
   }
 
   function selectScenario(scenario) {
     selectedScenario.value = scenario;
     window.electronAPI.sendScenario(scenario); // * for IPC
+    window.electronAPI.sendRightState('diff_sce');
   }
 
   function proceedToNext() {
@@ -345,6 +347,17 @@
       townNumber.value = towns[nextIndex];
       window.electronAPI.sendTown(townNumber.value);
     }
+    window.electronAPI.sendRightState('towns');
+  }
+
+  function handleTowns(){
+    changeState('towns');
+    window.electronAPI.sendRightState('towns');
+  }
+
+  function handlePlay(){
+    changeState('play');
+    window.electronAPI.sendRightState('diff_sce');
   }
 
   function changeState(state) {

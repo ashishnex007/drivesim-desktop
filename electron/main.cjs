@@ -48,21 +48,23 @@ ipcMain.on('exit-app', () => {
 app.whenReady().then(()=> {
   createWindow();
 
+  ipcMain.on('set-right-state', (event, state) => {
+    mainWindow.webContents.send('rightChange', state);
+    rightWindow.webContents.send('rightChange', state);
+  });
+
   ipcMain.on('set-difficulty', (event, difficulty) => {
     mainWindow.webContents.send('difficultyChange', difficulty);
-    leftWindow.webContents.send('difficultyChange', difficulty);
     rightWindow.webContents.send('difficultyChange', difficulty);
   });
 
   ipcMain.on('set-scenario', (event, scenario) => {
     mainWindow.webContents.send('scenarioChange', scenario);
-    leftWindow.webContents.send('scenarioChange', scenario);
     rightWindow.webContents.send('scenarioChange', scenario);
   });
 
   ipcMain.on('set-town', (event, town) => {
     mainWindow.webContents.send('town-changed', town);
-    leftWindow.webContents.send('town-changed', town);
     rightWindow.webContents.send('town-changed', town);
   });
 

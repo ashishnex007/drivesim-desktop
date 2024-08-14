@@ -6,7 +6,7 @@
   "main": "electron/main.cjs",
   "scripts": {
     "client": "vite",
-    "start": "electron .",
+    "app": "electron .",
     "server": "wait-on http://localhost:5173 && electron .",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
