@@ -7,11 +7,11 @@
   <div class="w-[1rem] h-[1rem] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
 
   <div v-if="selectedDifficulty">
-    <h1 class="text-3xl text-center">You are choosing{{ selectedDifficulty }}</h1>
+    <h1 class="text-3xl text-white text-center">You are choosing{{ selectedDifficulty }}</h1>
   </div>
 
   <div v-if="selectedScenario">
-    <h1 class="text-3xl text-center">You are choosing{{ selectedScenario }}</h1>
+    <h1 class="text-3xl text-white text-center">You are choosing{{ selectedScenario }}</h1>
   </div>
 
   <div class="container mx-auto">
