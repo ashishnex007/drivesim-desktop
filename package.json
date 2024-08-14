@@ -5,16 +5,19 @@
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {
-    "dev": "vite",
+    "client": "vite",
     "start": "electron .",
+    "server": "wait-on http://localhost:5173 && electron .",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "dependencies": {
     "@coreui/coreui": "^5.1.1",
     "@coreui/vue": "^5.2.0",
     "@headlessui/vue": "^1.7.22",
     "bootstrap": "^5.3.3",
+    "concurrently": "^8.2.2",
     "electron": "^31.3.1",
     "three": "^0.167.1",
     "vue": "^3.4.35",
@@ -28,6 +31,7 @@
     "tailwindcss": "^3.4.9",
     "typescript": "^5.5.3",
     "vite": "^5.4.0",
-    "vue-tsc": "^2.0.29"
+    "vue-tsc": "^2.0.29",
+    "wait-on": "^7.2.0"
   }
 }
