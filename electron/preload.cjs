@@ -10,5 +10,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   sendTown: (town) => ipcRenderer.send('set-town', town),
   onTownChange: (callback) => ipcRenderer.on('town-changed',callback),
 
+  runPython: (level, scene, town) => ipcRenderer.send('run-python', level, scene, town),
+
   exitApp: () => ipcRenderer.send('exit-app')
 });

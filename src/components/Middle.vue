@@ -11,7 +11,7 @@
     <div v-if="statex === 'landing'" class="flex flex-col w-1/2 items-center gap-y-8">
       <h1 class="text-center text-white font-semibold text-6xl my-24 mb-12">MOBILITY DRIVING SIMULATOR</h1>
       <button @click="changeState('practice')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
-        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-track-next"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /><path d="M13 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /></svg>
+        <img :src="prac" />
         PRACTICE
       </button>
       <button @click="changeState('play')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-[#F9AF06]  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
@@ -47,10 +47,10 @@
         <h1 class="text-4xl font-semibold">EASY</h1>
       </div>
 
-      <!-- MEDIUM -->
+      <!-- intermediate -->
       <div
-        :class="['w-40 h-40 rounded-xl flex flex-col items-center py-6 transition duration-300', selectedDifficulty === 'medium' ? 'bg-orange-500 text-white' : 'bg-white hover:bg-orange-500 hover:text-white']"
-        @click="selectDifficulty('medium')"
+        :class="['w-40 h-40 rounded-xl flex flex-col items-center py-6 transition duration-300', selectedDifficulty === 'intermediate' ? 'bg-orange-500 text-white' : 'bg-white hover:bg-orange-500 hover:text-white']"
+        @click="selectDifficulty('intermediate')"
       >
         <div class="flex">
           <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-star">
@@ -62,7 +62,7 @@
             <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
           </svg>
         </div>
-        <h1 class="text-4xl font-semibold">MEDIUM</h1>
+        <h1 class="text-4xl font-semibold">INTERMEDIATE</h1>
       </div>
 
       <!-- HARD -->
@@ -92,7 +92,7 @@
         SCENE 2
       </button>
       <button
-        v-if="selectedDifficulty === 'medium' || selectedDifficulty === 'hard'"
+        v-if="selectedDifficulty === 'intermediate' || selectedDifficulty === 'hard'"
         @click="selectScenario('scene3')"
         :class="['w-[20rem] text-4xl text-darkBlue font-bold py-8 px-8 rounded transition-all', selectedScenario === 'scene3' ? 'bg-[#F9D949] text-black hover:bg-[#ffcb00]' : 'bg-[#E5BA73] text-black hover:bg-[#F9D949] hover:text-black']"
       >
@@ -146,7 +146,10 @@
             </button>
           </div>
           <div class="px-20">
-            <button @click="changeState('play')" class="w-[20rem] flex gap-x-12 items-center bg-green-500 text-4xl text-white hover:text-5xl hover:bg-green-600 font-bold py-8 px-8 rounded transition-all">
+            <button
+              @click="runPythonScript()"
+              class="w-[20rem] flex gap-x-12 items-center bg-green-500 text-4xl text-white hover:text-5xl hover:bg-green-600 font-bold py-8 px-8 rounded transition-all"
+            >
               <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
               PLAY
             </button>
@@ -206,7 +209,7 @@
                   >
                     <span
                       :class="[
-                        selected ? 'font-medium' : 'font-normal',
+                        selected ? 'font-intermediate' : 'font-normal',
                         'block truncate',
                       ]"
                       >{{ weather.name }}</span
@@ -294,6 +297,7 @@
 <script setup>
   import { ref } from 'vue';
   import { Listbox, ListboxLabel, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
+  import prac from "../assets/svg/prac.svg";
 
   // states
   const selectedDifficulty = ref(null);
@@ -353,6 +357,22 @@
 
   function goBack() {
     statex.value = previousState.value;
+  }
+
+  function runPythonScript() {
+    const level = selectedDifficulty.value;
+    const scene = selectedScenario.value.slice(5, 6);
+    const town = townNumber.value;
+    console.log(level, scene, town);
+
+    console.log(typeof level, typeof scene, typeof town);
+
+    if(level && scene && town){
+      window.electronAPI.runPython(level, scene, town);
+    }else{
+      console.log('Please select a difficulty, scenario, and town before playing.');
+      alert("are u dumb ?");
+    }
   }
 
   function exitApp() {

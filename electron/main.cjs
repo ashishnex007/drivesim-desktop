@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const { execFile } = require('child_process');
 const path = require('path');
 
 let leftWindow, mainWindow, rightWindow;
@@ -64,6 +65,26 @@ app.whenReady().then(()=> {
     leftWindow.webContents.send('town-changed', town);
     rightWindow.webContents.send('town-changed', town);
   });
+
+  ipcMain.on('run-python', (event,level, scene, town) => {
+    console.log(`recieved in electron as level = ${level}, scene = ${scene}, town = ${town}`)
+    const pythonScriptPath = path.join(__dirname, '../../runnex.py');
+
+    const args = [level, scene, town];
+
+    execFile('python3', [pythonScriptPath, ...args], (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing Python script: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`Python stderr: ${stderr}`);
+        return;
+      }
+      console.log(`Python stdout: ${stdout}`);
+    });
+  });
+
 });
 
 app.on('window-all-closed', () => {
