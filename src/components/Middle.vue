@@ -1,10 +1,4 @@
 <template>
-
-  <div class="w-[1rem] h-[1rem] bg-white absolute"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute top-0 right-0"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 right-0"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 left-0"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
   
   <div id="landingFrame" class="flex justify-center items-center frame">
     <!-- <div id="landingFrame" class="flex justify-between items-center frame"> -->
@@ -32,7 +26,7 @@
       </button>
     </div>
 
-    <div v-if="statex === 'play'" class="flex flex-col w-full items-center gap-y-8">
+    <div v-if="statex === 'play'" class="flex flex-col w-full h-screen items-center gap-y-8">
     <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT DIFFICULTY</h1>
     <div class="flex w-full justify-around">
       <!-- EASY -->
@@ -62,7 +56,7 @@
             <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
           </svg>
         </div>
-        <h1 class="text-4xl font-semibold">INTERMEDIATE</h1>
+        <h1 class="text-xl py-4 font-semibold">INTERMEDIATE</h1>
       </div>
 
       <!-- HARD -->

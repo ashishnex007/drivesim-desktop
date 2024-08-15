@@ -1,18 +1,20 @@
 <template>
-  
-  <div class="w-[1rem] h-[1rem] bg-white absolute"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute top-0 right-0"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 right-0"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute bottom-0 left-0"></div>
-  <div class="w-[1rem] h-[1rem] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
 
   <div v-if="rightState === 'landing'" class="w-full h-screen flex justify-center">
     <img :src="steering_wheel" />
   </div>
 
-  <div v-if="rightState === 'diff_sce'">
-    <h1 class="text-3xl text-white text-center">You are choosing{{ selectedDifficulty }}</h1>
-    <h1 class="text-3xl text-white text-center">You are choosing{{ selectedScenario }}</h1>
+  <div v-if="rightState === 'diff_sce'" class="w-full h-screen">
+    <div class="flex flex-col items-center h-screen justify-center gap-y-4">
+      <div v-if="selectedDifficulty" class="flex gap-x-2">
+        <h1 class="text-4xl text-white text-center">You are choosing the difficulty: </h1>
+        <h1 class="text-4xl text-white text-center capitalize font-semibold">{{ selectedDifficulty }}</h1>
+      </div>
+      <div v-if="selectedScenario" class="flex gap-x-2">
+        <h1 class="text-4xl text-white text-center">You are choosing the scenario: </h1>
+        <h1 class="text-4xl text-white text-center capitalize font-semibold">{{ selectedScenario }}</h1>
+      </div>
+    </div>
   </div>
 
   <div class="container mx-auto" v-if="rightState === 'towns'">
