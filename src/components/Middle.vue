@@ -1,9 +1,37 @@
 <template>
   
   <div id="landingFrame" class="flex justify-center items-center frame">
-    <!-- <div id="landingFrame" class="flex justify-between items-center frame"> -->
+
+    <div v-if="statex === 'main'" class="h-screen">
+      <h1 class="text-5xl pt-6 font-bold uppercase text-center">Welcome to</h1>
+      <h1 class="text-6xl font-bold uppercase text-center text-white">Mobility Driving Simulator</h1>
+      <div class="py-20">
+        <h1 class="text-4xl font-semibold text-yellow text-center">CHOOSE YOUR ROLE</h1>
+        <div class="flex justify-around py-12">
+          <button class="btn btn-primary flex flex-col w-[20rem] h-[20rem]" @click="handleInstructor">
+            <h1 class="text-4xl">
+              INSTRUCTOR
+            </h1>
+            <img class="w-[8rem]" src="../assets/svg/instructor.svg" />
+          </button>
+          <button class="btn btn-accent flex flex-col w-[20rem] h-[20rem]" @click="handleDriver">
+            <h1 class="text-4xl">
+              DRIVER
+            </h1>
+            <img class="w-[8rem]" src="../assets/svg/steer_wheel.svg" />
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div v-if="statex === 'landing'" class="flex flex-col w-1/2 items-center gap-y-8">
+
       <h1 class="text-center text-white font-semibold text-6xl my-24 mb-12">MOBILITY DRIVING SIMULATOR</h1>
+      
+      <button class="p-4 btn btn-error flex items-center absolute top-[100px] left-[40px]" @click="changeState('main')">
+        <img src="../assets/svg/back.svg" />
+      </button>
+      
       <button @click="changeState('practice')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
         <img :src="prac" />
         PRACTICE
@@ -12,7 +40,7 @@
         <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-steering-wheel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 14l0 7" /><path d="M10 12l-6.75 -2" /><path d="M14 12l6.75 -2" /></svg>
         PLAY
       </button>
-      <button @click="changeState('settings')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-[#F9AF06]  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+      <button v-if="role === 'instructor'" @click="changeState('settings')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-[#F9AF06]  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
         SETTINGS
       </button>
@@ -294,12 +322,13 @@
   import prac from "../assets/svg/prac.svg";
 
   // states
+  const role = ref(null);
   const selectedDifficulty = ref(null);
   const selectedScenario = ref(null);
   const difficulty = ref('');
   const currentSlide = ref(0);
   const townNumber = ref('2');
-  const statex = ref('landing'); // state for which view to be shown
+  const statex = ref('main'); // state for which view to be shown
   const previousState = ref(''); // store the previous state
 
   const weatherOptions = [
@@ -307,7 +336,17 @@
     { name: 'Cloudy' },
     { name: 'Noon' },
   ];
-  const selectedWeather = ref(weatherOptions[0])
+  const selectedWeather = ref(weatherOptions[0]);
+  
+  function handleInstructor() {
+    role.value = "instructor";
+    statex.value = "landing";
+  }
+  
+  function handleDriver() {
+    role.value = "driver";
+    statex.value = "landing";
+  }
 
   function selectDifficulty(difficulty) {
     selectedDifficulty.value = difficulty;
@@ -370,9 +409,6 @@
     const level = selectedDifficulty.value;
     const scene = selectedScenario.value.slice(5, 6);
     const town = townNumber.value;
-    console.log(level, scene, town);
-
-    console.log(typeof level, typeof scene, typeof town);
 
     if(level && scene && town){
       window.electronAPI.runPython(level, scene, town);
