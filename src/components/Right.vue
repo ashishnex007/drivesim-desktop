@@ -17,9 +17,50 @@
       </div>
     </div>
 
-    <!-- scene 1 and scene 3 -->
-    <!-- FLV and DOC -->
-    <div v-if="selectedScenario === 'scene1' || selectedScenario === 'scene3'" class="flex justify-evenly">
+    <!-- easy scene 1: CL, FLV, DOC -->
+    <div v-if="selectedDifficulty === 'easy' && selectedScenario === 'scene1'" class="flex">
+
+      <div>
+        <img :src="CL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
+      </div>
+
+      <div>
+        <img :src="FLV" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Follow Leading Vehicle</h1>
+      </div>
+
+      <div>
+        <img :src="DOC" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Dynamic Object Crossing</h1>
+      </div>
+
+    </div>
+
+    <!-- easy scene 2: CL, FLV, SCO -->
+    <div v-if="selectedDifficulty === 'easy' && selectedScenario === 'scene2'" class="grid grid-cols-3 gap-4">
+
+      <div>
+        <img :src="CL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
+      </div>
+
+      <div>
+        <img :src="FLV" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Follow Leading Vehicle</h1>
+      </div>
+
+      <!-- add SCO here -->
+
+    </div>
+
+    <!-- intermediate scene 1: CL, FLV, DOC, VTR -->
+    <div v-if="selectedDifficulty === 'intermediate' && selectedScenario === 'scene1'" class="grid grid-cols-3 gap-4">
+
+      <div>
+        <img :src="CL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
+      </div>
 
       <div>
         <img :src="FLV" class="w-[40rem]" />
@@ -31,38 +72,95 @@
         <h1 class="text-4xl text-yellow text-center py-4">Dynamic Object Crossing</h1>
       </div>
       
+      <!-- add VTR here -->
     </div>
 
-    <!-- scene 2 -->
-     <!-- CL, NSLT, UT, OVRRL, CSC -->
-
-    <div v-if="selectedScenario === 'scene2'" class="grid grid-cols-3 gap-4">
-
-      <div>
-        <img :src="CSC" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Construction Setup Crossing</h1>
-      </div>
-  
+    <!-- intermediate scene 2: CL, SCO, MOD, OVRRL -->
+    <div v-if="selectedDifficulty === 'intermediate' && selectedScenario === 'scene2'" class="grid grid-cols-3 gap-4">
+      
       <div>
         <img :src="CL" class="w-[40rem]" />
         <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
       </div>
-  
-      <div>
-        <img :src="NSLT" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Non Signalized Left Turn</h1>
-      </div>
-      
+
+      <!-- add SCO here -->
+
+      <!-- add MOD here -->
+
       <div>
         <img :src="OVRRL" class="w-[40rem]" />
         <h1 class="text-4xl text-yellow text-center py-4">Opposite Vehicle Running Red Light</h1>
       </div>
-      
+
+    </div>
+
+    <!-- intermediate scene 3: CL, SCO, SJLRT -->
+    <div v-if="selectedDifficulty === 'intermediate' && selectedScenario === 'scene3'" class="grid grid-cols-3 gap-4">
+
       <div>
-        <img :src="UT" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Uphill Traffic</h1>
+        <img :src="CL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
       </div>
 
+      <!-- add SCO here -->
+      <!-- add SJLRT here -->
+
+    </div>
+
+    <!-- hard scene 1: CL, FLV, DOC, VTR, SCO, MOD, OVRRL -->
+    <div v-if="selectedDifficulty === 'hard' && selectedScenario === 'scene1'" class="grid grid-cols-3 gap-4">
+        
+      <div>
+        <img :src="CL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
+      </div>
+
+      <div>
+        <img :src="FLV" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Follow Leading Vehicle</h1>
+      </div>
+
+      <div>
+        <img :src="DOC" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Dynamic Object Crossing</h1>
+      </div>
+
+      <!-- add VTR here -->
+      <!-- add SCO here -->
+      <!-- add MOD here -->
+
+      <div>
+        <img :src="OVRRL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Opposite Vehicle Running Red Light</h1>
+      </div>
+
+    </div>
+
+    <!-- hard scene 2: CL, SCO, SJLRT, NSJC, FLVWO -->
+    <div v-if="selectedDifficulty === 'hard' && selectedScenario === 'scene2'" class="grid grid-cols-3 gap-4">
+        
+      <div>
+        <img :src="CL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
+      </div>
+
+      <!-- add SCO here -->
+      <!-- add SJLRT here -->
+      <!-- add NSJC here -->
+      <!-- add FLVWO here -->
+    </div>
+    
+    <!-- hard scene 3: CL, SFLVWO, CI, ChL -->
+    <div v-if="selectedDifficulty === 'hard' && selectedScenario === 'scene3'" class="grid grid-cols-3 gap-4">
+      
+      <div>
+        <img :src="CL" class="w-[40rem]" />
+        <h1 class="text-4xl text-yellow text-center py-4">Control Loss</h1>
+      </div>
+
+      <!-- add SFLVWO here -->
+      <!-- add CI here -->
+      <!-- add ChL here -->
     </div>
 
   </div>
