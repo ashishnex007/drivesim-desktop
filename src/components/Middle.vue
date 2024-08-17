@@ -555,19 +555,23 @@
     let num_vehicles_Indic_ThreeWheeler;
     let num_vehicles_Indic_FourWheeler;
 
-    num_walkers = walkers?.value;
-    num_vehicles_foreign = cars?.value;
-    num_vehicles_Indic_TwoWheeler = twoWheelers?.value;
-    num_vehicles_Indic_HeavyVehicle = heavyVehicles?.value;
-    num_vehicles_Indic_ThreeWheeler = threeWheelers?.value;
-    num_vehicles_Indic_FourWheeler = nanoVehicles?.value;
+    num_walkers = walkers?.value ? parseInt(walkers.value) : null;
+    num_vehicles_foreign = cars?.value ? parseInt(cars.value) : null;
+    num_vehicles_Indic_TwoWheeler = twoWheelers?.value ? parseInt(twoWheelers.value) : null;
+    num_vehicles_Indic_HeavyVehicle = heavyVehicles?.value ? parseInt(heavyVehicles.value) : null;
+    num_vehicles_Indic_ThreeWheeler = threeWheelers?.value ? parseInt(threeWheelers.value) : null;
+    num_vehicles_Indic_FourWheeler = nanoVehicles?.value ? parseInt(nanoVehicles.value) : null;
 
     if(weather == "Mid Rain" && time == "Night"){
       weather_param = "Mid Rainy Night";
     }else if(weather == "Mid Rain" && time == "Noon"){
       weather_param = "Mid Rainy Noon";
     }else{
-      weather_param = weather + ' ' + time;
+      if(weather && time){
+        weather_param = weather + ' ' + time;
+      }else{
+        weather_param = null;
+      }
     }
 
     console.log(level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
@@ -577,6 +581,7 @@
       console.log("Iam running the basic version");
     }else if(level && scene && town && weather){
       console.log("did I work?")
+      // window.electronAPI.runPythonAdv(level, scene, town - 2, `"${weather_param}"` );
       window.electronAPI.runPythonAdv(level, scene, town - 2, `"${weather_param}"` , num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
       console.log("Iam");
     }else{
