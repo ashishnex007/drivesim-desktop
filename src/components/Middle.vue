@@ -573,11 +573,11 @@
     console.log(level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
     'Clear Night', 'Clear Noon', 'Clear Sunset', 'Cloudy Night', 'Cloudy Noon', 'Cloudy Sunset', 'Default', 'Hard Rain Night', 'Hard Rain Noon', 'Hard Rain Sunset', 'Mid Rain Sunset', 'Mid Rainy Night', 'Mid Rainy Noon', 'Soft Rain Night', 'Soft Rain Noon', 'Soft Rain Sunset', 'Wet Cloudy Night', 'Wet Cloudy Noon', 'Wet Cloudy Sunset', 'Wet Night', 'Wet Noon', 'Wet Sunset'
     if(level && scene && town && !weather){
-      window.electronAPI.runPython(level, scene, town);
+      window.electronAPI.runPython(level, scene, town - 2);
       console.log("Iam running the basic version");
     }else if(level && scene && town && weather){
       console.log("did I work?")
-      window.electronAPI.runPythonAdv(level, scene, town, `"${weather_param}"` , num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
+      window.electronAPI.runPythonAdv(level, scene, town - 2, `"${weather_param}"` , num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
       console.log("Iam");
     }else{
       console.log('Please select a difficulty, scenario, and town before playing.');
