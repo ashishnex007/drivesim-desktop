@@ -87,6 +87,25 @@ app.whenReady().then(()=> {
     });
   });
 
+  ipcMain.on('run-python-adv', (event,level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler) => {
+    console.log(`recieved in electron as level = ${level}, scene = ${scene}, town = ${town}, weather_param = ${weather_param}, num_walkers = ${num_walkers}, num_vehicles_foreign = ${num_vehicles_foreign}, num_vehicles_Indic_TwoWheeler = ${num_vehicles_Indic_TwoWheeler}, num_vehicles_Indic_HeavyVehicle = ${num_vehicles_Indic_HeavyVehicle}, num_vehicles_Indic_ThreeWheeler = ${num_vehicles_Indic_ThreeWheeler}, num_vehicles_Indic_FourWheeler = ${num_vehicles_Indic_FourWheeler}`)
+    const pythonScriptPath = path.join(__dirname, '../../runnex.py');
+
+    const args = [level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler];
+
+    execFile('python3', [pythonScriptPath, ...args], (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing Python script: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`Python stderr: ${stderr}`);
+        return;
+      }
+      console.log(`Python stdout: ${stdout}`);
+    });
+  });
+
 });
 
 app.on('window-all-closed', () => {

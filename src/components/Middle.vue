@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div v-if="statex === 'landing'" class="flex flex-col w-1/2 items-center gap-y-8">
+    <div v-if="statex === 'landing'" class="flex flex-col h-screen w-1/2 items-center gap-y-8">
 
       <h1 class="text-center text-white font-semibold text-6xl my-24 mb-12">MOBILITY DRIVING SIMULATOR</h1>
       
@@ -181,73 +181,149 @@
     </div>
 
     <div v-if="statex === 'settings'" class="w-full h-screen">
-      <div class="w-[20rem]">
-        <h1>Select weather</h1>
-        <Listbox v-model="selectedWeather">
-          <div class="relative mt-1">
-            <ListboxButton
-              class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-            >
-              <span class="block truncate">{{ selectedWeather.name }}</span>
-              <span
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+
+      <button @click="changeState('landing')">back</button>
+
+      <div class="flex">
+
+        <div class="w-[20rem]">
+          <h1>Select weather</h1>
+          <Listbox v-model="selectedWeather">
+            <div class="relative mt-1">
+              <ListboxButton
+                class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
               >
-                <svg
-                  class="h-5 w-5 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
+                <span class="block truncate">{{ selectedWeather?.name ?? "Select a weather" }}</span>
+                <span
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                  />
-                </svg>
-              </span>
-            </ListboxButton>
-  
-            <transition
-              leave-active-class="transition duration-100 ease-in"
-              leave-from-class="opacity-100"
-              leave-to-class="opacity-0"
-            >
-              <ListboxOptions
-                class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
-              >
-                <ListboxOption
-                  v-slot="{ active, selected }"
-                  v-for="weather in weatherOptions"
-                  :key="weather.name"
-                  :value="weather"
-                  as="template"
-                >
-                  <li
-                    :class="[
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                      'relative cursor-default select-none py-2 pl-10 pr-4',
-                    ]"
+                  <svg
+                    class="h-5 w-5 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
                   >
-                    <span
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                    />
+                  </svg>
+                </span>
+              </ListboxButton>
+    
+              <transition
+                leave-active-class="transition duration-100 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <ListboxOptions
+                  class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+                >
+                  <ListboxOption
+                    v-slot="{ active, selected }"
+                    v-for="weather in weatherOptions"
+                    :key="weather.name"
+                    :value="weather"
+                    as="template"
+                  >
+                    <li
                       :class="[
-                        selected ? 'font-intermediate' : 'font-normal',
-                        'block truncate',
+                        active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                        'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
-                      >{{ weather.name }}</span
                     >
-                    <span
-                      v-if="selected"
-                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                      <span
+                        :class="[
+                          selected ? 'font-intermediate' : 'font-normal',
+                          'block truncate',
+                        ]"
+                        >{{ weather.name }}</span
+                      >
+                      <span
+                        v-if="selected"
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                      >
+                        <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    </li>
+                  </ListboxOption>
+                </ListboxOptions>
+              </transition>
+            </div>
+          </Listbox>
+        </div>
+  
+        <div class="w-[20rem]">
+          <h1>Select time</h1>
+          <Listbox v-model="selectedTime">
+            <div class="relative mt-1">
+              <ListboxButton
+                class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+              >
+                <span class="block truncate">{{ selectedTime?.name ?? "Select a time" }}</span>
+                <span
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+                >
+                  <svg
+                    class="h-5 w-5 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                    />
+                  </svg>
+                </span>
+              </ListboxButton>
+    
+              <transition
+                leave-active-class="transition duration-100 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <ListboxOptions
+                  class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+                >
+                  <ListboxOption
+                    v-slot="{ active, selected }"
+                    v-for="time in timeOptions"
+                    :key="time.name"
+                    :value="time"
+                    as="template"
+                  >
+                    <li
+                      :class="[
+                        active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                        'relative cursor-default select-none py-2 pl-10 pr-4',
+                      ]"
                     >
-                      <CheckIcon class="h-5 w-5" aria-hidden="true" />
-                    </span>
-                  </li>
-                </ListboxOption>
-              </ListboxOptions>
-            </transition>
-          </div>
-        </Listbox>
+                      <span
+                        :class="[
+                          selected ? 'font-intermediate' : 'font-normal',
+                          'block truncate',
+                        ]"
+                        >{{ time.name }}</span
+                      >
+                      <span
+                        v-if="selected"
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                      >
+                        <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    </li>
+                  </ListboxOption>
+                </ListboxOptions>
+              </transition>
+            </div>
+          </Listbox>
+        </div>
+
       </div>
 
       <div class="flex">
@@ -262,7 +338,7 @@
               <path
                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
             </svg>
-            <input type="text" class="grow" placeholder="Walkers" />
+            <input v-model="walkers" type="text" class="w-[10rem]" placeholder="Walkers" />
           </label>
         </div>
         
@@ -276,7 +352,7 @@
               <path
                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
             </svg>
-            <input type="text" class="grow" placeholder="Two wheeler Vehicles" />
+            <input v-model="twoWheelers" type="text" class="w-[10rem]" placeholder="Two wheeler Vehicles" />
           </label>
         </div>
 
@@ -290,7 +366,7 @@
               <path
                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
             </svg>
-            <input type="text" class="grow" placeholder="Three wheeler Vehicles" />
+            <input v-model="heavyVehicles" type="text" class="w-[10rem]" placeholder="Heavy Vehicles" />
           </label>
         </div>
 
@@ -304,13 +380,41 @@
               <path
                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
             </svg>
-            <input type="text" class="grow" placeholder="Four wheeler Vehicles" />
+            <input v-model="threeWheelers" type="text" class="w-[10rem]" placeholder="Three wheeler Vehicles" />
+          </label>
+        </div>
+
+        <div>
+          <label class="input input-bordered flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              class="h-4 w-4 opacity-70">
+              <path
+                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+            </svg>
+            <input v-model="nanoVehicles" type="text" class="w-[10rem]" placeholder="Nano Vehicles" />
+          </label>
+        </div>
+
+        <div>
+          <label class="input input-bordered flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              class="h-4 w-4 opacity-70">
+              <path
+                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+            </svg>
+            <input v-model="cars" type="text" class="w-[10rem]" placeholder="Cars" />
           </label>
         </div>
 
       </div>
 
-      <button class="btn">Save settings</button>
+      <button class="btn" @click="saveSettings">Save settings</button>
     </div>
 
   </div>
@@ -331,12 +435,43 @@
   const statex = ref('main'); // state for which view to be shown
   const previousState = ref(''); // store the previous state
 
+  // settings states
+  const walkers = ref('');
+  const twoWheelers = ref('');
+  const heavyVehicles = ref('');
+  const threeWheelers = ref('');
+  const nanoVehicles = ref('');
+  const cars = ref('');
+
+  function saveSettings() {
+    console.log(walkers.value);
+    console.log(twoWheelers.value);
+    console.log(heavyVehicles.value);
+    console.log(threeWheelers.value);
+    console.log(nanoVehicles.value);
+    console.log(cars.value);
+    console.log(selectedTime.value.name);
+    console.log(selectedWeather.value.name);
+    console.log('Settings saved');
+  }
+
   const weatherOptions = [
-    { name: 'Wet' },
+    { name: 'Clear' },
     { name: 'Cloudy' },
-    { name: 'Noon' },
+    { name: 'Hard Rain' },
+    { name: 'Mid Rain' },
+    { name: 'Soft Rain' },
+    { name: 'Wet Cloudy' },
+    { name: 'Wet' },
   ];
-  const selectedWeather = ref(weatherOptions[0]);
+  const selectedWeather = ref(null);
+
+  const timeOptions = [
+    { name: 'Noon' },
+    { name: 'Sunset' },
+    { name: 'Night' },
+  ];
+  const selectedTime = ref(null);
   
   function handleInstructor() {
     role.value = "instructor";
@@ -410,8 +545,40 @@
     const scene = selectedScenario.value.slice(5, 6);
     const town = townNumber.value;
 
-    if(level && scene && town){
+    const weather = selectedWeather.value?.name;
+    const time = selectedTime.value?.name;
+    let weather_param;
+    let num_walkers;
+    let num_vehicles_foreign;
+    let num_vehicles_Indic_TwoWheeler;
+    let num_vehicles_Indic_HeavyVehicle;
+    let num_vehicles_Indic_ThreeWheeler;
+    let num_vehicles_Indic_FourWheeler;
+
+    num_walkers = walkers?.value;
+    num_vehicles_foreign = cars?.value;
+    num_vehicles_Indic_TwoWheeler = twoWheelers?.value;
+    num_vehicles_Indic_HeavyVehicle = heavyVehicles?.value;
+    num_vehicles_Indic_ThreeWheeler = threeWheelers?.value;
+    num_vehicles_Indic_FourWheeler = nanoVehicles?.value;
+
+    if(weather == "Mid Rain" && time == "Night"){
+      weather_param = "Mid Rainy Night";
+    }else if(weather == "Mid Rain" && time == "Noon"){
+      weather_param = "Mid Rainy Noon";
+    }else{
+      weather_param = weather + ' ' + time;
+    }
+
+    console.log(level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
+    'Clear Night', 'Clear Noon', 'Clear Sunset', 'Cloudy Night', 'Cloudy Noon', 'Cloudy Sunset', 'Default', 'Hard Rain Night', 'Hard Rain Noon', 'Hard Rain Sunset', 'Mid Rain Sunset', 'Mid Rainy Night', 'Mid Rainy Noon', 'Soft Rain Night', 'Soft Rain Noon', 'Soft Rain Sunset', 'Wet Cloudy Night', 'Wet Cloudy Noon', 'Wet Cloudy Sunset', 'Wet Night', 'Wet Noon', 'Wet Sunset'
+    if(level && scene && town && !weather){
       window.electronAPI.runPython(level, scene, town);
+      console.log("Iam running the basic version");
+    }else if(level && scene && town && weather){
+      console.log("did I work?")
+      window.electronAPI.runPythonAdv(level, scene, town, `"${weather_param}"` , num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
+      console.log("Iam");
     }else{
       console.log('Please select a difficulty, scenario, and town before playing.');
       alert("are u dumb ?");

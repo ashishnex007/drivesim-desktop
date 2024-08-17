@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   onTownChange: (callback) => ipcRenderer.on('town-changed',callback),
 
   runPython: (level, scene, town) => ipcRenderer.send('run-python', level, scene, town),
+  runPythonAdv: (level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler) => ipcRenderer.send('run-python-adv', level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler),
 
   exitApp: () => ipcRenderer.send('exit-app')
 });
