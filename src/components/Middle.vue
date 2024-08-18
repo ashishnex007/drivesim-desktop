@@ -52,6 +52,16 @@
         <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
         EXIT
       </button>
+
+      <dialog ref="modal" class="modal">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Hello!</h3>
+        <p class="py-4">Press ESC key or click the button below to close</p>
+        <div class="modal-action">
+          <button class="btn" @click="closeModal">Close</button>
+        </div>
+      </div>
+    </dialog>
     </div>
 
     <div v-if="statex === 'play'" class="flex flex-col w-full h-screen items-center gap-y-8">
@@ -182,248 +192,112 @@
 
     <div v-if="statex === 'settings'" class="w-full h-screen">
 
-      <button @click="changeState('landing')">back</button>
+      <div class="p-8">
+        <button class="btn btn-error" @click="changeState('landing')">back</button>
+      </div>
 
-      <div class="flex">
+      <div class="flex w-full justify-evenly">
 
         <div class="w-[20rem]">
-          <h1>Select weather</h1>
-          <Listbox v-model="selectedWeather">
-            <div class="relative mt-1">
-              <ListboxButton
-                class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-              >
-                <span class="block truncate">{{ selectedWeather?.name ?? "Select a weather" }}</span>
-                <span
-                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-                >
-                  <svg
-                    class="h-5 w-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                    />
-                  </svg>
-                </span>
-              </ListboxButton>
-    
-              <transition
-                leave-active-class="transition duration-100 ease-in"
-                leave-from-class="opacity-100"
-                leave-to-class="opacity-0"
-              >
-                <ListboxOptions
-                  class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
-                >
-                  <ListboxOption
-                    v-slot="{ active, selected }"
-                    v-for="weather in weatherOptions"
-                    :key="weather.name"
-                    :value="weather"
-                    as="template"
-                  >
-                    <li
-                      :class="[
-                        active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                        'relative cursor-default select-none py-2 pl-10 pr-4',
-                      ]"
-                    >
-                      <span
-                        :class="[
-                          selected ? 'font-intermediate' : 'font-normal',
-                          'block truncate',
-                        ]"
-                        >{{ weather.name }}</span
-                      >
-                      <span
-                        v-if="selected"
-                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                      >
-                        <CheckIcon class="h-5 w-5" aria-hidden="true" />
-                      </span>
-                    </li>
-                  </ListboxOption>
-                </ListboxOptions>
-              </transition>
-            </div>
-          </Listbox>
+          <h1 class="text-center">Select weather</h1>
+          <div class="text-center py-4">
+            <img :src="currentWeather.svg" alt="Weather Icon" class="weather-icon mx-auto" />
+            <h2>{{ currentWeather.name }}</h2>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="96"
+            v-model="sliderValue"
+            class="range"
+            step="16"
+          />
+          <div class="flex w-full justify-between px-2 text-xs"> <span>|</span> <span>|</span> <span>|</span> <span>|</span> <span>|</span> <span>|</span> <span>|</span> </div>
         </div>
-  
+        
         <div class="w-[20rem]">
-          <h1>Select time</h1>
-          <Listbox v-model="selectedTime">
-            <div class="relative mt-1">
-              <ListboxButton
-                class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-              >
-                <span class="block truncate">{{ selectedTime?.name ?? "Select a time" }}</span>
-                <span
-                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-                >
-                  <svg
-                    class="h-5 w-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                    />
-                  </svg>
-                </span>
-              </ListboxButton>
-    
-              <transition
-                leave-active-class="transition duration-100 ease-in"
-                leave-from-class="opacity-100"
-                leave-to-class="opacity-0"
-              >
-                <ListboxOptions
-                  class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
-                >
-                  <ListboxOption
-                    v-slot="{ active, selected }"
-                    v-for="time in timeOptions"
-                    :key="time.name"
-                    :value="time"
-                    as="template"
-                  >
-                    <li
-                      :class="[
-                        active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                        'relative cursor-default select-none py-2 pl-10 pr-4',
-                      ]"
-                    >
-                      <span
-                        :class="[
-                          selected ? 'font-intermediate' : 'font-normal',
-                          'block truncate',
-                        ]"
-                        >{{ time.name }}</span
-                      >
-                      <span
-                        v-if="selected"
-                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                      >
-                        <CheckIcon class="h-5 w-5" aria-hidden="true" />
-                      </span>
-                    </li>
-                  </ListboxOption>
-                </ListboxOptions>
-              </transition>
-            </div>
-          </Listbox>
+          <h1 class="text-center">Select Time</h1>
+          <div class="text-center py-4">
+            <img :src="currentTime.svg" alt="Time Icon" class="weather-icon mx-auto" />
+            <h2>{{ currentTime.name }}</h2>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            v-model="timeSliderValue"
+            class="range"
+            step="50"
+          />
+          <div class="flex w-full justify-between px-2 text-xs"> <span>|</span> <span>|</span> <span>|</span> </div>
         </div>
 
       </div>
 
-      <div class="flex">
+      <div class="flex w-full justify-evenly py-20">
         
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              class="h-4 w-4 opacity-70">
-              <path
-                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-            </svg>
             <input v-model="walkers" type="text" class="w-[10rem]" placeholder="Walkers" />
           </label>
         </div>
         
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              class="h-4 w-4 opacity-70">
-              <path
-                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-            </svg>
             <input v-model="twoWheelers" type="text" class="w-[10rem]" placeholder="Two wheeler Vehicles" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              class="h-4 w-4 opacity-70">
-              <path
-                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-            </svg>
             <input v-model="heavyVehicles" type="text" class="w-[10rem]" placeholder="Heavy Vehicles" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              class="h-4 w-4 opacity-70">
-              <path
-                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-            </svg>
             <input v-model="threeWheelers" type="text" class="w-[10rem]" placeholder="Three wheeler Vehicles" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              class="h-4 w-4 opacity-70">
-              <path
-                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-            </svg>
             <input v-model="nanoVehicles" type="text" class="w-[10rem]" placeholder="Nano Vehicles" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              class="h-4 w-4 opacity-70">
-              <path
-                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-            </svg>
             <input v-model="cars" type="text" class="w-[10rem]" placeholder="Cars" />
           </label>
         </div>
 
       </div>
 
-      <button class="btn" @click="saveSettings">Save settings</button>
+      <div class="flex justify-evenly">
+        <button class="btn btn-error" @click="clearSettings">Clear settings</button>
+        <button class="btn btn-accent" @click="saveSettings">Save settings</button>
+      </div>
     </div>
 
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { Listbox, ListboxLabel, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
   import prac from "../assets/svg/prac.svg";
+  import clearSvg from "../assets/weather_svg/clear.svg";
+  import cloudySvg from "../assets/weather_svg/cloudy.svg";
+  import hardRainSvg from "../assets/weather_svg/heavy_rain.svg";
+  import midRainSvg from "../assets/weather_svg/mid_rain.svg";
+  import softRainSvg from "../assets/weather_svg/soft_rain.svg";
+  import wetCloudySvg from "../assets/weather_svg/wet_cloudy.svg";
+  import wetSvg from "../assets/weather_svg/wet.svg";
+
+  import sunny from "../assets/time_svg/sunny.svg";
+  import night from "../assets/time_svg/night.svg";
+  import sunset from "../assets/time_svg/sunset.svg";
 
   // states
   const role = ref(null);
@@ -444,34 +318,55 @@
   const cars = ref('');
 
   function saveSettings() {
+    console.log(currentWeather.value.name);
+    console.log(currentTime.value.name);
     console.log(walkers.value);
     console.log(twoWheelers.value);
     console.log(heavyVehicles.value);
     console.log(threeWheelers.value);
     console.log(nanoVehicles.value);
     console.log(cars.value);
-    console.log(selectedTime.value.name);
-    console.log(selectedWeather.value.name);
     console.log('Settings saved');
   }
 
+  function clearSettings() {
+    walkers.value = '';
+    twoWheelers.value = '';
+    heavyVehicles.value = '';
+    threeWheelers.value = '';
+    nanoVehicles.value = '';
+    cars.value = '';
+  }
+
   const weatherOptions = [
-    { name: 'Clear' },
-    { name: 'Cloudy' },
-    { name: 'Hard Rain' },
-    { name: 'Mid Rain' },
-    { name: 'Soft Rain' },
-    { name: 'Wet Cloudy' },
-    { name: 'Wet' },
+    { name: 'Clear', svg: clearSvg },
+    { name: 'Cloudy', svg: cloudySvg },
+    { name: 'Hard Rain', svg: hardRainSvg },
+    { name: 'Mid Rain', svg: midRainSvg },
+    { name: 'Soft Rain', svg: softRainSvg },
+    { name: 'Wet Cloudy', svg: wetCloudySvg },
+    { name: 'Wet', svg: wetSvg },
   ];
-  const selectedWeather = ref(null);
+
+  const sliderValue = ref(0); // * for weather slider
+
+  const currentWeather = computed(() => {
+    const index = sliderValue.value / 16;
+    return weatherOptions[index];
+  });
 
   const timeOptions = [
-    { name: 'Noon' },
-    { name: 'Sunset' },
-    { name: 'Night' },
+    { name: 'Noon', svg: sunny },
+    { name: 'Sunset', svg: sunset },
+    { name: 'Night', svg: night },
   ];
-  const selectedTime = ref(null);
+
+  const timeSliderValue = ref(0);
+
+  const currentTime = computed(() => {
+    const index = timeSliderValue.value / 50;
+    return timeOptions[index];
+  });
   
   function handleInstructor() {
     role.value = "instructor";
@@ -545,8 +440,8 @@
     const scene = selectedScenario.value.slice(5, 6);
     const town = townNumber.value;
 
-    const weather = selectedWeather.value?.name;
-    const time = selectedTime.value?.name;
+    const weather = currentWeather.value?.name;
+    const time = currentTime.value?.name;
     let weather_param;
     let num_walkers;
     let num_vehicles_foreign;
@@ -575,7 +470,7 @@
     }
 
     console.log(level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler);
-    'Clear Night', 'Clear Noon', 'Clear Sunset', 'Cloudy Night', 'Cloudy Noon', 'Cloudy Sunset', 'Default', 'Hard Rain Night', 'Hard Rain Noon', 'Hard Rain Sunset', 'Mid Rain Sunset', 'Mid Rainy Night', 'Mid Rainy Noon', 'Soft Rain Night', 'Soft Rain Noon', 'Soft Rain Sunset', 'Wet Cloudy Night', 'Wet Cloudy Noon', 'Wet Cloudy Sunset', 'Wet Night', 'Wet Noon', 'Wet Sunset'
+
     if(level && scene && town && !weather){
       window.electronAPI.runPython(level, scene, town - 2);
       console.log("Iam running the basic version");
@@ -596,17 +491,7 @@
 </script>
 
 <style scoped>
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity 0.5s ease;
-  }
-  .fade-enter-from, .fade-leave-to {
-    opacity: 0;
-  }
-  .svg-scale svg {
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .hover\\:svg-scale:hover svg {
-    transform: scale(1.25);
+  .weather-icon {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
   }
 </style>
