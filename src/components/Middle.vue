@@ -31,6 +31,24 @@
       <button class="p-4 btn btn-error flex items-center absolute top-[100px] left-[40px]" @click="changeState('main')">
         <img src="../assets/svg/back.svg" />
       </button>
+
+      <div v-if="role === 'driver'" class="flex items-center gap-x-12">
+
+        <div>
+          <div class="label">
+            <span class="label-text">What is your name?</span>
+          </div>
+          <input type="text" class="p-4 rounded w-[25rem]" placeholder="Enter your name" v-model="name" />
+        </div>
+
+        <div>
+          <label class="cursor-pointer label">
+            <span class="label-text">Do you want a report of your performance in the end?</span>
+            <input type="checkbox" v-model="isReportChecked" class="checkbox checkbox-success" />
+          </label>
+        </div>
+
+      </div>
       
       <button @click="changeState('practice')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
         <img :src="prac" />
@@ -149,7 +167,107 @@
     </div>
     </div>
 
-    <div v-if="statex === 'towns'" class="w-full h-screen">
+    <div v-if="statex === 'explore'" class="h-screen">
+      <h1 class="text-yellow text-4xl py-4 text-center font-semibold">WELCOME TO THE EXPLORE PAGE</h1>
+      <h1 class="text-white text-4xl py-4 text-center font-semibold">You can now view all our assets, towns and scenarios</h1>
+
+      <div class="py-20 flex flex-col h-[80vh] gap-y-8 items-center">
+        <button @click="changeState('towns')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+          TOWNS
+        </button>
+
+        <button @click="changeState('viewScenarios')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+          SCENARIOS
+        </button>
+      </div>
+      
+      <div>
+        <button @click="changeState('landing')" class="btn btn-error">back</button>
+      </div>
+
+    </div>
+
+    <div v-if="statex === 'towns'" class="h-screen">
+
+      <div class="carousel w-full">
+        <div id="slide1" class="carousel-item relative w-full">
+          <img
+            src="../assets/town_maps/town2map.png"
+            class="max-h-[80vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide5" @click="updateTownNumber(6)" class="btn btn-circle">❮</a>
+            <a href="#slide2" @click="updateTownNumber(3)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide2" class="carousel-item relative w-full">
+          <img
+            src="../assets/town_maps/town3map.png"
+            class="max-h-[80vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide1" @click="updateTownNumber(3)" class="btn btn-circle">❮</a>
+            <a href="#slide3" @click="updateTownNumber(4)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide3" class="carousel-item relative w-full">
+          <img
+            src="../assets/town_maps/town4map.png"
+            class="max-h-[80vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide2" @click="updateTownNumber(3)" class="btn btn-circle">❮</a>
+            <a href="#slide4" @click="updateTownNumber(5)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide4" class="carousel-item relative w-full">
+          <img
+            src="../assets/town_maps/town5map.png"
+            class="max-h-[80vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide3" @click="updateTownNumber(4)" class="btn btn-circle">❮</a>
+            <a href="#slide5" @click="updateTownNumber(6)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide5" class="carousel-item relative w-full">
+          <img
+            src="../assets/town_maps/town6map.png"
+            class="max-h-[80vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide4" @click="updateTownNumber(5)" class="btn btn-circle">❮</a>
+            <a href="#slide1" @click="updateTownNumber(2)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="text-white text-center text-4xl font-semibold">You are viewing Town {{ townNumber }}</h5>
+      
+      <div class="flex justify-between">
+        <div class="px-20">
+          <button @click="goBack()" class="w-[20rem] flex gap-x-8 items-center bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevrons-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 7l-5 5l5 5" /><path d="M17 7l-5 5l5 5" /></svg>
+            BACK
+          </button>
+        </div>
+        <div v-if="previousState === 'play'" class="px-20">
+          <button
+            @click="runPythonScript()"
+            class="w-[20rem] flex gap-x-12 items-center bg-green-500 text-4xl text-white hover:text-5xl hover:bg-green-600 font-bold py-8 px-8 rounded transition-all"
+          >
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
+            PLAY
+          </button>
+        </div>
+      </div>
+
+    </div>
+    
+    <div v-if="statex === 'viewScenarios'">
+      
+
+      <div>
+        <button @click="changeState('explore')" class="btn btn-error">back</button>
+      </div>
+    </div>
+
+    <div v-if="statex === 'townsx'" class="w-full h-screen">
       <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT YOUR TOWN</h1>
 
         <div class="h-4/5">
@@ -301,11 +419,13 @@
 
   // states
   const role = ref(null);
+  const name = ref('');
+  const isReportChecked = ref(true);
   const selectedDifficulty = ref(null);
   const selectedScenario = ref(null);
   const difficulty = ref('');
   const currentSlide = ref(0);
-  const townNumber = ref('2');
+  const townNumber = ref(2);
   const statex = ref('main'); // state for which view to be shown
   const previousState = ref(''); // store the previous state
 
@@ -396,6 +516,12 @@
     }
   }
 
+  function updateTownNumber(number) {
+    townNumber.value = number;
+    window.electronAPI.sendRightState('towns');
+    window.electronAPI.sendTown(number);
+  }
+
   function changeTown(direction) {
     const towns = ['2', '3', '4', '5', '6'];
     const currentIndex = towns.indexOf(townNumber.value);
@@ -416,6 +542,7 @@
   function handleTowns(){
     changeState('towns');
     window.electronAPI.sendRightState('towns');
+    window.electronAPI.sendTown(townNumber.value);
   }
 
   function handlePlay(){
