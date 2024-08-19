@@ -2,12 +2,12 @@
   
   <div id="landingFrame" class="flex justify-center items-center frame">
 
-    <div v-if="statex === 'main'" class="h-screen">
-      <h1 class="text-5xl pt-6 font-bold uppercase text-center">Welcome to</h1>
-      <h1 class="text-6xl font-bold uppercase text-center text-white">Mobility Driving Simulator</h1>
-      <div class="py-20">
+    <div v-if="statex === 'main'" class="h-screen w-full">
+      <h1 class="text-5xl pt-20 font-bold uppercase text-center">Welcome to</h1>
+      <h1 class="text-6xl pt-6 font-bold uppercase text-center text-white">Mobility Driving Simulator</h1>
+      <div class="pt-32">
         <h1 class="text-4xl font-semibold text-yellow text-center">CHOOSE YOUR ROLE</h1>
-        <div class="flex justify-around py-12">
+        <div class="flex justify-center gap-x-40 py-12">
           <button class="btn btn-primary flex flex-col w-[20rem] h-[20rem]" @click="handleInstructor">
             <h1 class="text-4xl">
               INSTRUCTOR
@@ -22,14 +22,21 @@
           </button>
         </div>
       </div>
+
+      <div class="p-8 pt-24">
+        <button @click="exitApp" class="flex items-center gap-x-4 bg-red-500 text-4xl text-white  hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
+          EXIT
+        </button>
+      </div>
     </div>
 
     <div v-if="statex === 'landing'" class="flex flex-col h-screen w-1/2 items-center gap-y-8">
 
       <h1 class="text-center text-white font-semibold text-6xl my-24 mb-12">MOBILITY DRIVING SIMULATOR</h1>
       
-      <button class="p-4 btn btn-error flex items-center absolute top-[100px] left-[40px]" @click="changeState('main')">
-        <img src="../assets/svg/back.svg" />
+      <button class="p-4 btn btn-error absolute w-[5rem] h-[5rem] top-[100px] left-[40px]" @click="changeState('main')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
       </button>
 
       <div v-if="role === 'driver'" class="flex items-center gap-x-12">
@@ -41,19 +48,13 @@
           <input type="text" class="p-4 rounded w-[25rem]" placeholder="Enter your name" v-model="name" />
         </div>
 
-        <div>
-          <label class="cursor-pointer label">
-            <span class="label-text">Do you want a report of your performance in the end?</span>
-            <input type="checkbox" v-model="isReportChecked" class="checkbox checkbox-success" />
-          </label>
-        </div>
-
       </div>
       
       <button @click="changeState('practice')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
-        <img :src="prac" />
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-track-next"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /><path d="M13 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /></svg>
         PRACTICE
       </button>
+
       <button @click="changeState('play')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-[#F9AF06]  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-steering-wheel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 14l0 7" /><path d="M10 12l-6.75 -2" /><path d="M14 12l6.75 -2" /></svg>
         PLAY
@@ -66,15 +67,11 @@
         <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-world"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M3.6 9h16.8" /><path d="M3.6 15h16.8" /><path d="M11.5 3a17 17 0 0 0 0 18" /><path d="M12.5 3a17 17 0 0 1 0 18" /></svg>
         EXPLORE
       </button>
-      <button @click="exitApp" class="w-[20rem] flex items-center gap-x-4 bg-red-500 text-4xl text-white  hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">
-        <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
-        EXIT
-      </button>
 
     </div>
 
     <div v-if="statex === 'play'" class="flex flex-col w-full h-screen items-center gap-y-8">
-    <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT DIFFICULTY</h1>
+    <h1 class="text-yellow text-4xl py-12 text-center font-semibold">SELECT DIFFICULTY</h1>
     <div class="flex w-full justify-around">
       <!-- EASY -->
       <div
@@ -103,7 +100,7 @@
             <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"/>
           </svg>
         </div>
-        <h1 class="text-xl py-4 font-semibold">INTERMEDIATE</h1>
+        <h1 class="text-4xl py-4 font-semibold">MEDIUM</h1>
       </div>
 
       <!-- HARD -->
@@ -116,7 +113,7 @@
       </div>
     </div>
 
-    <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT SCENARIO</h1>
+    <h1 class="text-yellow text-4xl pt-32 pb-8 text-center font-semibold">SELECT SCENARIO</h1>
     <div class="flex w-full justify-around">
       <button
         v-if="selectedDifficulty === 'easy' || selectedDifficulty"
@@ -141,7 +138,7 @@
       </button>
     </div>
 
-    <div class="flex w-full justify-around">
+    <div class="flex w-full justify-around pt-44">
       <button
         @click="changeState('landing')"
         :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition bg-red-500 hover:bg-red-600 text-white']"
@@ -158,22 +155,27 @@
     </div>
     </div>
 
-    <div v-if="statex === 'explore'" class="h-screen">
+    <div v-if="statex === 'explore'" class="h-screen w-full">
       <h1 class="text-yellow text-4xl py-4 text-center font-semibold">WELCOME TO THE EXPLORE PAGE</h1>
       <h1 class="text-white text-4xl py-4 text-center font-semibold">You can now view all our assets, towns and scenarios</h1>
 
-      <div class="py-20 flex flex-col h-[80vh] gap-y-8 items-center">
-        <button @click="changeState('towns')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+      <div class="py-20 flex flex-col h-[70vh] gap-y-8 items-center justify-center">
+        <button @click="changeState('towns')" class="w-[20rem] flex items-center justify-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
           TOWNS
         </button>
 
-        <button @click="changeState('viewScenarios')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+        <button @click="changeState('viewScenarios')" class="w-[20rem] flex items-center justify-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
           SCENARIOS
         </button>
       </div>
       
-      <div>
-        <button @click="changeState('landing')" class="btn btn-error">back</button>
+      <div class="px-20">
+        <button
+        @click="goBack()"
+        :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition bg-red-500 hover:bg-red-600 text-white']"
+        >
+          BACK
+        </button>
       </div>
 
     </div>
@@ -234,21 +236,24 @@
       <h5 class="text-white text-center text-4xl font-semibold py-4">You are viewing Town {{ townNumber }}</h5>
       
       <div class="flex justify-between pt-20">
+
         <div class="px-20">
-          <button @click="goBack()" class="w-[20rem] flex gap-x-8 items-center bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevrons-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 7l-5 5l5 5" /><path d="M17 7l-5 5l5 5" /></svg>
+          <button
+          @click="goBack()"
+          :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition bg-red-500 hover:bg-red-600 text-white']"
+          >
             BACK
           </button>
         </div>
         <div v-if="previousState === 'play'" class="px-20">
           <button
             @click="runPythonScript()"
-            class="w-[20rem] flex gap-x-12 items-center bg-green-500 text-4xl text-white hover:text-5xl hover:bg-green-600 font-bold py-8 px-8 rounded transition-all"
+            class="mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition bg-green-500 hover:bg-green-600 text-white"
           >
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
             PLAY
           </button>
-        </div>
+        </div>        
+        
       </div>
 
     </div>
@@ -257,64 +262,32 @@
       
 
       <div>
-        <button @click="changeState('explore')" class="btn btn-error">back</button>
+        <div class="px-20">
+          <button
+          @click="goBack()"
+          :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition bg-red-500 hover:bg-red-600 text-white']"
+          >
+            BACK
+          </button>
+        </div>
       </div>
-    </div>
-
-    <div v-if="statex === 'townsx'" class="w-full h-screen">
-      <h1 class="text-yellow text-4xl py-4 text-center font-semibold">SELECT YOUR TOWN</h1>
-
-        <div class="h-4/5">
-          <div class="w-full flex justify-center">
-            <div class="w-[45rem]">
-              <img v-if="townNumber === '2'" src="../assets/town_maps/town2map.png" class="h-[45rem] justify-center object-contain" />
-              <img v-if="townNumber === '3'" src="../assets/town_maps/town3map.png" class="h-[45rem] justify-center object-contain" />
-              <img v-if="townNumber === '4'" src="../assets/town_maps/town4map.png" class="h-[45rem] justify-center object-contain" />
-              <img v-if="townNumber === '5'" src="../assets/town_maps/town5map.png" class="h-[45rem] justify-center object-contain" />
-              <img v-if="townNumber === '6'" src="../assets/town_maps/town6map.png" class="h-[45rem] justify-center object-contain" />
-            </div>
-          </div>
-          <h5 class="text-white text-center text-4xl font-semibold">Town {{ townNumber }}</h5> 
-              
-          <div>
-            <svg @click="changeTown(-1)" xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="absolute cursor-pointer top-1/2 left-[20rem] text-white transform -translate-y-1/2 icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm1.707 6.293a1 1 0 0 0 -1.414 0l-3 3l-.083 .094a1 1 0 0 0 .083 1.32l3 3l.094 .083a1 1 0 0 0 1.32 -.083l.083 -.094a1 1 0 0 0 -.083 -1.32l-2.292 -2.293l2.292 -2.293l.083 -.094a1 1 0 0 0 -.083 -1.32z" fill="currentColor" stroke-width="0" /></svg>
-            <svg @click="changeTown(-1)" xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="absolute cursor-pointer top-1/2 right-[20rem] text-white transform -translate-y-1/2 icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2c-.218 0 -.432 .002 -.642 .005l-.616 .017l-.299 .013l-.579 .034l-.553 .046c-4.785 .464 -6.732 2.411 -7.196 7.196l-.046 .553l-.034 .579c-.005 .098 -.01 .198 -.013 .299l-.017 .616l-.004 .318l-.001 .324c0 .218 .002 .432 .005 .642l.017 .616l.013 .299l.034 .579l.046 .553c.464 4.785 2.411 6.732 7.196 7.196l.553 .046l.579 .034c.098 .005 .198 .01 .299 .013l.616 .017l.642 .005l.642 -.005l.616 -.017l.299 -.013l.579 -.034l.553 -.046c4.785 -.464 6.732 -2.411 7.196 -7.196l.046 -.553l.034 -.579c.005 -.098 .01 -.198 .013 -.299l.017 -.616l.005 -.642l-.005 -.642l-.017 -.616l-.013 -.299l-.034 -.579l-.046 -.553c-.464 -4.785 -2.411 -6.732 -7.196 -7.196l-.553 -.046l-.579 -.034a28.058 28.058 0 0 0 -.299 -.013l-.616 -.017l-.318 -.004l-.324 -.001zm-1.707 6.293a1 1 0 0 1 1.32 -.083l.094 .083l3 3a1 1 0 0 1 .083 1.32l-.083 .094l-3 3a1 1 0 0 1 -1.497 -1.32l.083 -.094l2.292 -2.293l-2.292 -2.293a1 1 0 0 1 -.083 -1.32l.083 -.094z" fill="currentColor" stroke-width="0" /></svg>
-          </div>
-        </div>
-
-        <div class="flex justify-between">
-          <div class="px-20">
-            <button @click="goBack()" class="w-[20rem] flex gap-x-8 items-center bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevrons-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 7l-5 5l5 5" /><path d="M17 7l-5 5l5 5" /></svg>
-              BACK
-            </button>
-          </div>
-          <div class="px-20">
-            <button
-              @click="runPythonScript()"
-              class="w-[20rem] flex gap-x-12 items-center bg-green-500 text-4xl text-white hover:text-5xl hover:bg-green-600 font-bold py-8 px-8 rounded transition-all"
-            >
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></svg>
-              PLAY
-            </button>
-          </div>
-        </div>
-  
     </div>
 
     <div v-if="statex === 'settings'" class="w-full h-screen">
 
       <div class="p-8">
-        <button class="btn btn-error" @click="changeState('landing')">back</button>
+        <button class="p-4 btn btn-error  w-[5rem] h-[5rem]" @click="changeState('landing')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+        </button>
       </div>
 
       <div class="flex w-full justify-evenly">
 
         <div class="w-[20rem]">
-          <h1 class="text-center">Select weather</h1>
-          <div class="text-center py-4">
+          <h1 class="text-center text-xl font-bold uppercase">Select weather</h1>
+          <div class="text-center py-12">
             <img :src="currentWeather.svg" alt="Weather Icon" class="weather-icon mx-auto" />
-            <h2>{{ currentWeather.name }}</h2>
+            <h2 class="text-center text-xl font-bold uppercase pt-12">{{ currentWeather.name }}</h2>
           </div>
           <input
             type="range"
@@ -328,10 +301,10 @@
         </div>
         
         <div class="w-[20rem]">
-          <h1 class="text-center">Select Time</h1>
-          <div class="text-center py-4">
+          <h1 class="text-center text-xl font-bold uppercase">Select Time</h1>
+          <div class="text-center py-12">
             <img :src="currentTime.svg" alt="Time Icon" class="weather-icon mx-auto" />
-            <h2>{{ currentTime.name }}</h2>
+            <h2 class="text-center text-xl font-bold uppercase pt-12">{{ currentTime.name }}</h2>
           </div>
           <input
             type="range"
@@ -350,45 +323,55 @@
         
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <input v-model="walkers" type="text" class="w-[10rem]" placeholder="Walkers" />
+            <input v-model="walkers" type="text" class="w-[10rem]" placeholder="WALKERS" />
           </label>
         </div>
         
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <input v-model="twoWheelers" type="text" class="w-[10rem]" placeholder="Two wheeler Vehicles" />
+            <input v-model="twoWheelers" type="text" class="w-[10rem]" placeholder="TWO WHEELERS" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <input v-model="heavyVehicles" type="text" class="w-[10rem]" placeholder="Heavy Vehicles" />
+            <input v-model="heavyVehicles" type="text" class="w-[10rem]" placeholder="HEAVY VEHICLES" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <input v-model="threeWheelers" type="text" class="w-[10rem]" placeholder="Three wheeler Vehicles" />
+            <input v-model="threeWheelers" type="text" class="w-[10rem]" placeholder="THREE WHEELERS" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <input v-model="nanoVehicles" type="text" class="w-[10rem]" placeholder="Nano Vehicles" />
+            <input v-model="nanoVehicles" type="text" class="w-[10rem]" placeholder="NANO VEHICLES" />
           </label>
         </div>
 
         <div>
           <label class="input input-bordered flex items-center gap-2">
-            <input v-model="cars" type="text" class="w-[10rem]" placeholder="Cars" />
+            <input v-model="cars" type="text" class="w-[10rem]" placeholder="CARS" />
           </label>
         </div>
 
       </div>
 
       <div class="flex justify-evenly">
-        <button class="btn btn-error" @click="clearSettings">Clear settings</button>
-        <button class="btn btn-accent" @click="saveSettings">Save settings</button>
+        <button
+          @click="clearSettings"
+          :class="['mt-8 w-48 py-4 text-xl font-semibold rounded-lg transition bg-red-500 hover:bg-red-600 text-white']"
+        >
+          CLEAR SETTINGS
+        </button>
+        <button
+          @click="saveSettings"
+          :class="['mt-8 w-48 py-4 text-xl font-semibold rounded-lg transition bg-green-500 hover:bg-green-600 text-white']"
+        >
+          SAVE SETTINGS
+        </button>
       </div>
     </div>
 
@@ -398,7 +381,6 @@
 <script setup>
   import { ref, computed } from 'vue';
   import { Listbox, ListboxLabel, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
-  import prac from "../assets/svg/prac.svg";
   import clearSvg from "../assets/weather_svg/clear.svg";
   import cloudySvg from "../assets/weather_svg/cloudy.svg";
   import hardRainSvg from "../assets/weather_svg/heavy_rain.svg";
@@ -431,17 +413,7 @@
   const nanoVehicles = ref('');
   const cars = ref('');
 
-  function saveSettings() {
-    console.log(currentWeather.value.name);
-    console.log(currentTime.value.name);
-    console.log(walkers.value);
-    console.log(twoWheelers.value);
-    console.log(heavyVehicles.value);
-    console.log(threeWheelers.value);
-    console.log(nanoVehicles.value);
-    console.log(cars.value);
-    console.log('Settings saved');
-  }
+  function saveSettings() { console.log(currentWeather.value.name); console.log(currentTime.value.name); console.log(walkers.value); console.log(twoWheelers.value); console.log(heavyVehicles.value); console.log(threeWheelers.value); console.log(nanoVehicles.value); console.log(cars.value); console.log('Settings saved') }
 
   function clearSettings() {
     walkers.value = '';
@@ -514,23 +486,6 @@
     townNumber.value = number;
     window.electronAPI.sendRightState('towns');
     window.electronAPI.sendTown(number);
-  }
-
-  function changeTown(direction) {
-    const towns = ['2', '3', '4', '5', '6'];
-    const currentIndex = towns.indexOf(townNumber.value);
-    const nextIndex = currentIndex + direction;
-    if (nextIndex < 0) {
-      townNumber.value = towns[towns.length - 1];
-      window.electronAPI.sendTown(townNumber.value);
-    } else if (nextIndex >= towns.length) {
-      townNumber.value = towns[0];
-      window.electronAPI.sendTown(townNumber.value);
-    } else {
-      townNumber.value = towns[nextIndex];
-      window.electronAPI.sendTown(townNumber.value);
-    }
-    window.electronAPI.sendRightState('towns');
   }
 
   function handleTowns(){

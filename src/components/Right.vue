@@ -8,12 +8,12 @@
 
     <div class="flex flex-col items-center gap-y-4 py-12">
       <div v-if="selectedDifficulty" class="flex gap-x-2">
-        <h1 class="text-4xl text-white text-center">You are choosing the difficulty: </h1>
-        <h1 class="text-4xl text-white text-center capitalize font-semibold">{{ selectedDifficulty }}</h1>
+        <h1 class="text-4xl text-white text-center uppercase font-semibold">You are choosing the difficulty: </h1>
+        <h1 class="text-4xl text-white text-center font-semibold uppercase">{{ selectedDifficulty }}</h1>
       </div>
       <div v-if="selectedScenario" class="flex gap-x-2">
-        <h1 class="text-4xl text-white text-center">You are choosing the scenario: </h1>
-        <h1 class="text-4xl text-white text-center capitalize font-semibold">{{ selectedScenario }}</h1> 
+        <h1 class="text-4xl text-white text-center uppercase font-semibold">You are choosing the scenario: </h1>
+        <h1 class="text-4xl text-white text-center font-semibold uppercase">{{ selectedScenario }}</h1> 
       </div>
     </div>
 
@@ -22,17 +22,17 @@
 
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <div>
         <img :src="FLV" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Follow Leading Vehicle</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Follow Leading Vehicle</h1>
       </div>
 
       <div>
         <img :src="DOC" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Dynamic Object Crossing</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Dynamic Object Crossing</h1>
       </div>
 
     </div>
@@ -42,12 +42,12 @@
 
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <div>
         <img :src="FLV" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Follow Leading Vehicle</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Follow Leading Vehicle</h1>
       </div>
 
       <!-- add SCO here -->
@@ -59,17 +59,17 @@
 
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <div>
         <img :src="FLV" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Follow Leading Vehicle</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Follow Leading Vehicle</h1>
       </div>
 
       <div>
         <img :src="DOC" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Dynamic Object Crossing</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Dynamic Object Crossing</h1>
       </div>
       
       <!-- add VTR here -->
@@ -80,7 +80,7 @@
       
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <!-- add SCO here -->
@@ -89,7 +89,7 @@
 
       <div>
         <img :src="OVRRL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Opposite Vehicle Running Red Light</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Opposite Vehicle Running Red Light</h1>
       </div>
 
     </div>
@@ -99,7 +99,7 @@
 
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <!-- add SCO here -->
@@ -112,17 +112,17 @@
         
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <div>
         <img :src="FLV" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Follow Leading Vehicle</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Follow Leading Vehicle</h1>
       </div>
 
       <div>
         <img :src="DOC" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Dynamic Object Crossing</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Dynamic Object Crossing</h1>
       </div>
 
       <!-- add VTR here -->
@@ -131,7 +131,7 @@
 
       <div>
         <img :src="OVRRL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Opposite Vehicle Running Red Light</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Opposite Vehicle Running Red Light</h1>
       </div>
 
     </div>
@@ -141,7 +141,7 @@
         
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <!-- add SCO here -->
@@ -155,7 +155,7 @@
       
       <div>
         <img :src="CL" class="w-[40rem]" />
-        <h1 class="text-4xl text-yellow text-center py-4">Speed Breaker</h1>
+        <h1 class="text-4xl text-yellow text-center py-4 uppercase font-semibold">Speed Breaker</h1>
       </div>
 
       <!-- add SFLVWO here -->
