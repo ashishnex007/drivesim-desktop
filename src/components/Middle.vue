@@ -71,15 +71,6 @@
         EXIT
       </button>
 
-      <dialog ref="modal" class="modal">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">Hello!</h3>
-        <p class="py-4">Press ESC key or click the button below to close</p>
-        <div class="modal-action">
-          <button class="btn" @click="closeModal">Close</button>
-        </div>
-      </div>
-    </dialog>
     </div>
 
     <div v-if="statex === 'play'" class="flex flex-col w-full h-screen items-center gap-y-8">
@@ -189,29 +180,32 @@
 
     <div v-if="statex === 'towns'" class="h-screen">
 
+      <h1 v-if="previousState === 'play'" class="text-4xl text-center py-8 font-bold text-yellow">SELECT A TOWN</h1>
+      <h1 v-if="previousState === 'explore'" class="text-4xl text-center py-8 font-bold text-yellow">YOU ARE VIEWING TOWNS</h1>
+
       <div class="carousel w-full">
         <div id="slide1" class="carousel-item relative w-full">
           <img
             src="../assets/town_maps/town2map.png"
-            class="max-h-[80vh] w-full object-contain" />
+            class="max-h-[60vh] w-full object-contain" />
           <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide5" @click="updateTownNumber(6)" class="btn btn-circle">❮</a>
+            <a href="#slide5" @click="updateTownNumber(6)" class="btn btn-circle">❮</a>SELECT
             <a href="#slide2" @click="updateTownNumber(3)" class="btn btn-circle">❯</a>
           </div>
         </div>
         <div id="slide2" class="carousel-item relative w-full">
           <img
             src="../assets/town_maps/town3map.png"
-            class="max-h-[80vh] w-full object-contain" />
+            class="max-h-[60vh] w-full object-contain" />
           <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide1" @click="updateTownNumber(3)" class="btn btn-circle">❮</a>
+            <a href="#slide1" @click="updateTownNumber(2)" class="btn btn-circle">❮</a>
             <a href="#slide3" @click="updateTownNumber(4)" class="btn btn-circle">❯</a>
           </div>
         </div>
         <div id="slide3" class="carousel-item relative w-full">
           <img
             src="../assets/town_maps/town4map.png"
-            class="max-h-[80vh] w-full object-contain" />
+            class="max-h-[60vh] w-full object-contain" />
           <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
             <a href="#slide2" @click="updateTownNumber(3)" class="btn btn-circle">❮</a>
             <a href="#slide4" @click="updateTownNumber(5)" class="btn btn-circle">❯</a>
@@ -220,7 +214,7 @@
         <div id="slide4" class="carousel-item relative w-full">
           <img
             src="../assets/town_maps/town5map.png"
-            class="max-h-[80vh] w-full object-contain" />
+            class="max-h-[60vh] w-full object-contain" />
           <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
             <a href="#slide3" @click="updateTownNumber(4)" class="btn btn-circle">❮</a>
             <a href="#slide5" @click="updateTownNumber(6)" class="btn btn-circle">❯</a>
@@ -229,7 +223,7 @@
         <div id="slide5" class="carousel-item relative w-full">
           <img
             src="../assets/town_maps/town6map.png"
-            class="max-h-[80vh] w-full object-contain" />
+            class="max-h-[60vh] w-full object-contain" />
           <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
             <a href="#slide4" @click="updateTownNumber(5)" class="btn btn-circle">❮</a>
             <a href="#slide1" @click="updateTownNumber(2)" class="btn btn-circle">❯</a>
@@ -237,9 +231,9 @@
         </div>
       </div>
 
-      <h5 class="text-white text-center text-4xl font-semibold">You are viewing Town {{ townNumber }}</h5>
+      <h5 class="text-white text-center text-4xl font-semibold py-4">You are viewing Town {{ townNumber }}</h5>
       
-      <div class="flex justify-between">
+      <div class="flex justify-between pt-20">
         <div class="px-20">
           <button @click="goBack()" class="w-[20rem] flex gap-x-8 items-center bg-red-500 text-4xl text-white hover:text-5xl hover:bg-red-600 font-bold py-8 px-8 rounded transition-all">
             <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevrons-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 7l-5 5l5 5" /><path d="M17 7l-5 5l5 5" /></svg>
@@ -259,7 +253,7 @@
 
     </div>
     
-    <div v-if="statex === 'viewScenarios'">
+    <div v-if="statex === 'viewScenarios'" class="w-full h-screen">
       
 
       <div>
