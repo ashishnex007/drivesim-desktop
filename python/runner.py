@@ -34,8 +34,8 @@ def main(level, scene, town, weather_param=None, num_walkers=None, num_vehicles_
 
     # Default parameters
     weather_param = weather_param or '\'Wet Cloudy Noon\''
-    # display_caution_param = '--display_caution'
-    display_caution_param = ''
+    display_caution_param = '--display_caution'
+    # display_caution_param = ''
 
     # Initialize other_params
     other_params = ''
@@ -92,13 +92,20 @@ def main(level, scene, town, weather_param=None, num_walkers=None, num_vehicles_
     # Construct the command
     # command = (f"python3 scenario_runner.py --route srunner/data/final_routes_loop.xml srunner/data/final_all_towns_traffic_scenarios_loop_{level}{scene_id}.json {town_id} --agent srunner/autoagents/human_agent.py --output --weather {weather_param} {other_params}")
     # command = (f"python3 scenario_runner.py --route srunner/data/final_routes_loop.xml srunner/data/final_all_towns_traffic_scenarios_loop_{level}{scene_id}.json {town_id} --agent srunner/autoagents/steering_agent.py --output --weather {weather_param} {other_params}")
-    command = (f"python3 scenario_runner.py --route srunner/data/final_routes_loop.xml srunner/data/final_all_towns_traffic_scenarios_loop_{level}{scene_id}.json {town_id} --output --weather {weather_param} {other_params}")
+    command = (f"python3 scenario_runner.py --route srunner/data/final_routes_loop.xml srunner/data/final_all_towns_traffic_scenarios_loop_{level}{scene_id}.json {town_id} --output --weather {weather_param} {other_params} --json")
 
     print(command)
 
-    # Open terminals
-    subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', f'cd "{root_dir}/scenario_runner" && {command}; exec bash'])
-    subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', f'cd "{root_dir}/scenario_runner" && python3 manual_control_steeringwheel_trials_copy.py {display_caution_param}; exec bash'])
+    # Open terminals and capture output
+    p1 = subprocess.Popen(f'cd "{root_dir}/scenario_runner" && {command}', 
+                      shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    # Start the second process in the background
+    p2 = subprocess.Popen(f'cd "{root_dir}/scenario_runner" && python3 manual_control_steeringwheel_trials_copy.py {display_caution_param}', 
+                        shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+    # os.killpg(os.getpgid(p2.pid), signal.SIGTERM)
+    # os.killpg(os.getpgid(p2.pid), signal.SIGKILL) #SIGINT
 
 if __name__ == "__main__":
     # mandatory arguments
@@ -107,13 +114,13 @@ if __name__ == "__main__":
     town = sys.argv[3]
 
     # optional params
-    weather_param = sys.argv[4] if len(sys.argv) > 4 else None
-    num_walkers = int(sys.argv[5]) if len(sys.argv) > 5 else None
-    num_vehicles_foreign = int(sys.argv[6]) if len(sys.argv) > 6 else None
-    num_vehicles_Indic_TwoWheeler = int(sys.argv[7]) if len(sys.argv) > 7 else None
-    num_vehicles_Indic_HeavyVehicle = int(sys.argv[8]) if len(sys.argv) > 8 else None
-    num_vehicles_Indic_ThreeWheeler = int(sys.argv[9]) if len(sys.argv) > 9 else None
-    num_vehicles_Indic_FourWheeler = int(sys.argv[10]) if len(sys.argv) > 10 else None
+    weather_param = sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] != 'null' else None
+    num_walkers = int(sys.argv[5]) if len(sys.argv) > 5 and sys.argv[5] != 'null' else None
+    num_vehicles_foreign = int(sys.argv[6]) if len(sys.argv) > 6 and sys.argv[6] != 'null' else None
+    num_vehicles_Indic_TwoWheeler = int(sys.argv[7]) if len(sys.argv) > 7 and sys.argv[7] != 'null' else None
+    num_vehicles_Indic_HeavyVehicle = int(sys.argv[8]) if len(sys.argv) > 8 and sys.argv[8] != 'null' else None
+    num_vehicles_Indic_ThreeWheeler = int(sys.argv[9]) if len(sys.argv) > 9 and sys.argv[9] != 'null' else None
+    num_vehicles_Indic_FourWheeler = int(sys.argv[10]) if len(sys.argv) > 10 and sys.argv[10] != 'null' else None
 
     print(level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler)
     main(level, scene, town, weather_param, num_walkers, num_vehicles_foreign, num_vehicles_Indic_TwoWheeler, num_vehicles_Indic_HeavyVehicle, num_vehicles_Indic_ThreeWheeler, num_vehicles_Indic_FourWheeler)

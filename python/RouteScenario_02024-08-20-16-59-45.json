@@ -1,0 +1,70 @@
+{
+    "scenario": "RouteScenario_0",
+    "success": false,
+    "criteria": [
+        {
+            "name": "RouteCompletionTest",
+            "actor": "lincoln.mkz_2017-12411",
+            "optional": false,
+            "expected": 100,
+            "actual": 0.0,
+            "success": false
+        },
+        {
+            "name": "CollisionTest",
+            "actor": "lincoln.mkz_2017-12411",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "InRouteTest",
+            "actor": "lincoln.mkz_2017-12411",
+            "optional": false,
+            "expected": 0,
+            "actual": 1,
+            "success": false
+        },
+        {
+            "name": "OutsideRouteLanesTest",
+            "actor": "lincoln.mkz_2017-12411",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "RunningRedLightTest",
+            "actor": "lincoln.mkz_2017-12411",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "RunningStopTest",
+            "actor": "lincoln.mkz_2017-12411",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "ActorSpeedAboveThresholdTest",
+            "actor": "lincoln.mkz_2017-12411",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "Duration",
+            "actor": "all",
+            "optional": false,
+            "expected": 295,
+            "actual": 8.579999808222055,
+            "success": true
+        }
+    ]
+}

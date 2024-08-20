@@ -73,6 +73,11 @@ app.whenReady().then(()=> {
     rightWindow.webContents.send('town-changed', town);
   });
 
+  ipcMain.on('run-practice', (event) => {
+    const pythonScriptPath = path.join(__dirname, '../../runnex.py');
+    // TODO: Add practice mode
+  });
+
   ipcMain.on('run-python', (event,level, scene, town) => {
     console.log(`recieved in electron as level = ${level}, scene = ${scene}, town = ${town}`)
     const pythonScriptPath = path.join(__dirname, '../../runnex.py');
