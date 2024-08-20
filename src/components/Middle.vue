@@ -590,17 +590,22 @@
   function changeState(state) {
     previousState.value = statex.value;
     statex.value = state;
+    window.electronAPI.sendRightState(state);
     if(state === 'towns') {
       window.electronAPI.sendTown(townNumber.value);
     }else if(state === 'viewScenarios'){
       window.electronAPI.sendScene(sceneNumber.value);
+    }else if(state === 'play'){
+      window.electronAPI.sendRightState('diff_sce');
     }
-    window.electronAPI.sendRightState(state);
   }
 
   function goBack() {
     statex.value = previousState.value;
     window.electronAPI.sendRightState(statex.value);
+    if(previousState.value === 'play'){
+      window.electronAPI.sendRightState('diff_sce');
+    }
   }
 
   function runPythonScript() {

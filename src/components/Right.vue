@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="rightState === 'landing'" class="w-full h-screen flex justify-center">
+  <div v-if="rightState === 'landing'  || rightState === 'main'" class="w-full h-screen flex justify-center">
     <img :src="steering_wheel" />
   </div>
 
@@ -245,7 +245,7 @@
   import OVRRL from "../assets/scenes/Opposite_Vehicle_Running_Red_Light.gif";
   import UT from "../assets/scenes/Uphill_Traffic.gif";
 
-  const rightState = ref('landing');
+  const rightState = ref('main');
   const selectedDifficulty = ref('');
   const selectedTown = ref('');
   const selectedScenario = ref('');
@@ -288,10 +288,4 @@
 </script>
 
 <style scoped>
-  .container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 </style>
