@@ -171,7 +171,7 @@
       
       <div class="px-20">
         <button
-        @click="goBack()"
+        @click="changeState('landing')"
         :class="['mt-8 w-48 py-4 text-2xl font-semibold rounded-lg transition bg-red-500 hover:bg-red-600 text-white']"
         >
           BACK
@@ -260,6 +260,75 @@
     
     <div v-if="statex === 'viewScenarios'" class="w-full h-screen">
       
+      <h1 class="text-4xl text-center py-8 font-bold text-yellow">YOU ARE VIEWING SCENARIOS</h1>
+
+      <div class="carousel w-full">
+        <div id="slide1" class="carousel-item relative w-full">
+          <img
+            src="../assets/scenes/Construction_Setup_Crossing.gif"
+            class="max-h-[60vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide7" @click="updateScene(6)" class="btn btn-circle">❮</a>
+            <a href="#slide2" @click="updateScene(2)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide2" class="carousel-item relative w-full">
+          <img
+            src="../assets/scenes/Control_Loss.gif"
+            class="max-h-[60vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide1" @click="updateScene(1)" class="btn btn-circle">❮</a>
+            <a href="#slide3" @click="updateScene(3)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide3" class="carousel-item relative w-full">
+          <img
+            src="../assets/scenes/Dynamic_Object_Crossing.gif"
+            class="max-h-[60vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide2" @click="updateScene(2)" class="btn btn-circle">❮</a>
+            <a href="#slide4" @click="updateScene(4)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide4" class="carousel-item relative w-full">
+          <img
+            src="../assets/scenes/Follow_Leading_Vehicle.gif"
+            class="max-h-[60vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide3" @click="updateScene(3)" class="btn btn-circle">❮</a>
+            <a href="#slide5" @click="updateScene(5)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide5" class="carousel-item relative w-full">
+          <img
+            src="../assets/scenes/Non_Signalized_Left_Turn.gif"
+            class="max-h-[60vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide4" @click="updateScene(4)" class="btn btn-circle">❮</a>
+            <a href="#slide6" @click="updateScene(6)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide6" class="carousel-item relative w-full">
+          <img
+            src="../assets/scenes/Opposite_Vehicle_Running_Red_Light.gif"
+            class="max-h-[60vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide5" @click="updateScene(5)" class="btn btn-circle">❮</a>
+            <a href="#slide7" @click="updateScene(7)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+        <div id="slide7" class="carousel-item relative w-full">
+          <img
+            src="../assets/scenes/Uphill_Traffic.gif"
+            class="max-h-[60vh] w-full object-contain" />
+          <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+            <a href="#slide7" @click="updateScene(6)" class="btn btn-circle">❮</a>
+            <a href="#slide1" @click="updateScene(1)" class="btn btn-circle">❯</a>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="text-white text-center text-4xl font-semibold py-4">You are viewing Scene {{ sceneName }}</h5>
 
       <div>
         <div class="px-20">
@@ -402,6 +471,7 @@
   const difficulty = ref('');
   const currentSlide = ref(0);
   const townNumber = ref(2);
+  const sceneNumber = ref(1);
   const statex = ref('main'); // state for which view to be shown
   const previousState = ref(''); // store the previous state
 
@@ -494,9 +564,27 @@
     window.electronAPI.sendTown(townNumber.value);
   }
 
+  const sceneNames = {
+    1: 'Construction Setup Crossing',
+    2: 'Control Loss',
+    3: 'Dynamic Object Crossing',
+    4: 'Follow Leading Vehicle',
+    5: 'Non Signalized Left Turn',
+    6: 'Opposite Vehicle Running Red Light',
+    7: 'Uphill Traffic',
+  };
+
+  const sceneName = computed(() => sceneNames[sceneNumber.value]); 
+
+  function updateScene(scene) { // * for updating the scene number in explore page
+    sceneNumber.value = scene;
+    window.electronAPI.sendScene(sceneNumber.value);
+    window.electronAPI.sendRightState('viewScenarios');
+  }
+
   function handlePlay(){
     changeState('play');
-    window.electronAPI.sendRightState('diff_sce');
+    window.electronAPI.sendScene('diff_sce');
   }
 
   function changeState(state) {
@@ -504,11 +592,15 @@
     statex.value = state;
     if(state === 'towns') {
       window.electronAPI.sendTown(townNumber.value);
+    }else if(state === 'viewScenarios'){
+      window.electronAPI.sendScene(sceneNumber.value);
     }
+    window.electronAPI.sendRightState(state);
   }
 
   function goBack() {
     statex.value = previousState.value;
+    window.electronAPI.sendRightState(statex.value);
   }
 
   function runPythonScript() {

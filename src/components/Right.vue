@@ -220,10 +220,21 @@
     </div>
 
   </div>
+
+  <div class="h-screen" v-if="rightState === 'viewScenarios'">
+    <div class="h-screen flex flex-col justify-center items-center">
+      <h1 class="text-4xl text-white p-4 font-bold">
+        You are viewing {{ sceneName }}
+      </h1>
+      <h1 class="text-2xl px-8 font-bold">
+        You are viewing the scenario {{ sceneDescription }}
+      </h1>
+    </div>
+  </div>
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, computed } from 'vue';
   import steering_wheel from '../assets/steering_wheel.png';
 
   import CSC from "../assets/scenes/Construction_Setup_Crossing.gif";
@@ -238,6 +249,20 @@
   const selectedDifficulty = ref('');
   const selectedTown = ref('');
   const selectedScenario = ref('');
+  const selectedScene = ref('');
+
+  const sceneNames = [
+    { name: 'Construction Setup Crossing', description: 'Construction Setup Crossing is a scenario where the player has to navigate through a construction site.'},
+    { name: 'Control Loss', description: 'Control Loss is a scenario where the player has to regain control of the vehicle after losing it.'},
+    { name: 'Dynamic Object Crossing', description: 'Dynamic Object Crossing is a scenario where the player has to navigate through a road with dynamic objects crossing.'},
+    { name: 'Follow Leading Vehicle', description: 'Follow Leading Vehicle is a scenario where the player has to follow a leading vehicle.'},
+    { name: 'Non Signalized Left Turn', description: 'Non Signalized Left Turn is a scenario where the player has to make a left turn without any signals.'},
+    { name: 'Opposite Vehicle Running Red Light', description: 'Opposite Vehicle Running Red Light is a scenario where the player has to avoid a vehicle running a red light.'},
+    { name: 'Uphill Traffic', description: 'Uphill Traffic is a scenario where the player has to navigate through uphill traffic.'}
+  ];
+
+  const sceneName = computed(() => sceneNames[selectedScene.value - 1].name);
+  const sceneDescription = computed(() => sceneNames[selectedScene.value - 1].description);
 
   onMounted(() => {
     window.electronAPI.onRightStateChange((event, state) => {
@@ -250,6 +275,10 @@
 
     window.electronAPI.onScenarioChange((event, scenario) => {
       selectedScenario.value = scenario;
+    });
+
+    window.electronAPI.onSceneChange((event, scene) => { // for explore page
+      selectedScene.value = scene;
     });
 
     window.electronAPI.onTownChange((event, town) => {

@@ -63,6 +63,11 @@ app.whenReady().then(()=> {
     rightWindow.webContents.send('scenarioChange', scenario);
   });
 
+  ipcMain.on('set-scene', (event, scene) => {
+    mainWindow.webContents.send('scene-changed', scene);
+    rightWindow.webContents.send('scene-changed', scene);
+  });
+
   ipcMain.on('set-town', (event, town) => {
     mainWindow.webContents.send('town-changed', town);
     rightWindow.webContents.send('town-changed', town);
