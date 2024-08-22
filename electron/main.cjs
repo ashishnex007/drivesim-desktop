@@ -53,6 +53,11 @@ app.whenReady().then(()=> {
     rightWindow.webContents.send('rightChange', state);
   });
 
+  ipcMain.on('set-name', (event, name) => {
+    mainWindow.webContents.send('name-changed', name);
+    rightWindow.webContents.send('name-changed', name);
+  });
+
   ipcMain.on('set-difficulty', (event, difficulty) => {
     mainWindow.webContents.send('difficultyChange', difficulty);
     rightWindow.webContents.send('difficultyChange', difficulty);

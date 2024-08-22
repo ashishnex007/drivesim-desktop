@@ -1,7 +1,11 @@
 <template>
 
   <div v-if="rightState === 'landing'  || rightState === 'main'" class="w-full h-screen flex justify-center">
-    <img :src="steering_wheel" />
+    <div v-if="rightState === 'main' && userName" class="flex flex-col items-center justify-center">
+      <h1 class="text-6xl text-yellow font-bold text-center py-8 uppercase">Hey {{ userName }}</h1>
+      <h1 class="text-4xl text-white text-center py-8 uppercase">Hope you'll enjoy your time on Mobility Driving Simulator</h1>
+    </div>
+    <img v-else :src="steering_wheel" />
   </div>
 
   <div v-if="rightState === 'diff_sce'" class="w-full h-[5000px]">
@@ -246,6 +250,7 @@
   import UT from "../assets/scenes/Uphill_Traffic.gif";
 
   const rightState = ref('main');
+  const userName = ref('');
   const selectedDifficulty = ref('');
   const selectedTown = ref('');
   const selectedScenario = ref('');
@@ -267,6 +272,10 @@
   onMounted(() => {
     window.electronAPI.onRightStateChange((event, state) => {
       rightState.value = state;
+    });
+
+    window.electronAPI.onNameChange((event, name) => {
+      userName.value = name;
     });
 
     window.electronAPI.onDifficultyChange((event, difficulty) => {

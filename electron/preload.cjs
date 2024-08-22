@@ -4,6 +4,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   sendRightState: (state) => ipcRenderer.send('set-right-state', state),
   onRightStateChange: (callback) => ipcRenderer.on('rightChange', callback),
 
+  sendName: (name) => ipcRenderer.send('set-name', name),
+  onNameChange: (callback) => ipcRenderer.on('name-changed',callback),
+
   sendDifficulty: (difficulty) => ipcRenderer.send('set-difficulty', difficulty),
   onDifficultyChange: (callback) => ipcRenderer.on('difficultyChange',callback),
 

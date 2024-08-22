@@ -42,10 +42,12 @@
       <div v-if="role === 'driver'" class="flex items-center gap-x-12">
 
         <div>
-          <div class="label">
-            <span class="label-text">What is your name?</span>
+          <div class="flex flex-col justify-between items-center">
+            <input type="text" class="p-4 rounded w-[25rem]" placeholder="Enter your name here." v-model="name" />
+            <div class="flex w-full py-4">
+              <button @click="handleName" class="bg-white text-black rounded px-4">Save</button>
+            </div>
           </div>
-          <input type="text" class="p-4 rounded w-[25rem]" placeholder="Enter your name" v-model="name" />
         </div>
 
       </div>
@@ -482,6 +484,12 @@
   const threeWheelers = ref('');
   const nanoVehicles = ref('');
   const cars = ref('');
+
+  function handleName() {
+    if (name.value) {
+      window.electronAPI.sendName(name.value);
+    }
+  }
 
   function saveSettings() { console.log(currentWeather.value.name); console.log(currentTime.value.name); console.log(walkers.value); console.log(twoWheelers.value); console.log(heavyVehicles.value); console.log(threeWheelers.value); console.log(nanoVehicles.value); console.log(cars.value); console.log('Settings saved') }
 
