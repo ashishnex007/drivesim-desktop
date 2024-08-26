@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { execFile } = require('child_process');
+const { exec, execFile } = require('child_process');
 const path = require('path');
 
 let leftWindow, mainWindow, rightWindow;
@@ -80,7 +80,20 @@ app.whenReady().then(()=> {
 
   ipcMain.on('run-practice', (event) => {
     const pythonScriptPath = path.join(__dirname, '../../runnex.py');
-    // TODO: Add practice mode
+
+    const args = ["easy", 1, 2];
+
+    execFile('python3', [pythonScriptPath, ...args], (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing Python script: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`Python stderr: ${stderr}`);
+        return;
+      }
+      console.log(`Python stdout: ${stdout}`);
+    });
   });
 
   ipcMain.on('run-python', (event,level, scene, town) => {

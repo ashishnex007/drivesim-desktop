@@ -52,7 +52,7 @@
 
       </div>
       
-      <button @click="changeState('practice')" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
+      <button @click="handlePractice" class="w-[20rem] flex items-center gap-x-4 bg-white text-4xl text-darkBlue hover:bg-yellow  hover:text-[#fbfbfb] font-bold py-8 px-8 rounded transition-all">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="50"  height="50"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-player-track-next"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /><path d="M13 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" /></svg>
         PRACTICE
       </button>
@@ -489,6 +489,10 @@
     if (name.value) {
       window.electronAPI.sendName(name.value);
     }
+  }
+
+  function handlePractice() {
+    window.electronAPI.runPractice();
   }
 
   function saveSettings() { console.log(currentWeather.value.name); console.log(currentTime.value.name); console.log(walkers.value); console.log(twoWheelers.value); console.log(heavyVehicles.value); console.log(threeWheelers.value); console.log(nanoVehicles.value); console.log(cars.value); console.log('Settings saved') }
